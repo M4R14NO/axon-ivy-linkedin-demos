@@ -1,0 +1,18 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "DecisionMakerData",
+  "namespace" : "decision.maker",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "options",
+    "type" : "List<entity.Option>"
+  }, {
+    "name" : "message",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "selectedOption",
+    "type" : "entity.Option",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

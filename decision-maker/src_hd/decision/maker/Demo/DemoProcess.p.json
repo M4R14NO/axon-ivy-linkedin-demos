@@ -1,0 +1,151 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "1989779052084FA5",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "decision.maker.Demo.DemoData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "guid" : "19897790523FF764"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f6" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "19897790529A9034"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 160 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 160 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "Script",
+      "name" : "Init option list",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import entity.Option;",
+            "in.options.add(new Option());"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f7", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogEventStart",
+      "name" : "decide",
+      "config" : {
+        "guid" : "1989780A8D7842D7"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f11", "to" : "f10" }
+      ]
+    }, {
+      "id" : "f9",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 488, "y" : 264 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f13",
+      "type" : "HtmlDialogEventStart",
+      "name" : "addNewOption",
+      "config" : {
+        "guid" : "19897D63EAB378CA"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 368 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f14" }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "Script",
+      "name" : "Add an empty option",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import entity.Option;",
+            "in.options.add(new Option());"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 280, "y" : 368 }
+      },
+      "connect" : [
+        { "id" : "f17", "to" : "f15" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 488, "y" : 368 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f10",
+      "type" : "SubProcessCall",
+      "name" : "Call assistant to decide",
+      "config" : {
+        "processCall" : "AI Processes/DecisionMaker:decide(List<entity.Option>,String)",
+        "call" : {
+          "map" : {
+            "param.options" : "in.options",
+            "param.message" : "in.message"
+          }
+        },
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.selectedOption" : "result.selectedOption"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 280, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f9" }
+      ]
+    } ]
+}

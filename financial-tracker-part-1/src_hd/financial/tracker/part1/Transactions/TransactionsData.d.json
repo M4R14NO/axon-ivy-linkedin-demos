@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "TransactionsData",
+  "namespace" : "financial.tracker.part1.Transactions",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "message",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transactions",
+    "type" : "List<entity.Transaction>",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

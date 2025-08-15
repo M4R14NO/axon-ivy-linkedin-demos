@@ -1,0 +1,67 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "198971967CB2D7C9",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "decision.maker.DecisionMakerData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "decide(Option>,String)",
+      "config" : {
+        "signature" : "decide",
+        "input" : {
+          "params" : [
+            { "name" : "options", "type" : "List<entity.Option>", "desc" : "" },
+            { "name" : "message", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.message" : "param.message",
+            "out.options" : "param.options"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "selectedOption", "type" : "entity.Option", "desc" : "" }
+          ],
+          "map" : {
+            "result.selectedOption" : "in.selectedOption"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 440, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "name" : "Call agent",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import assitant.DecisionMaker;",
+            "",
+            "DecisionMaker assistant = new DecisionMaker();",
+            "in.selectedOption = assistant.makeDecision(in.options, in.message);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    } ]
+}
