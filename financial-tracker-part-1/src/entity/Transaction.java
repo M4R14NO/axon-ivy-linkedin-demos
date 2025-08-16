@@ -2,6 +2,7 @@ package entity;
 
 import java.time.LocalDate;
 
+import dev.langchain4j.model.output.structured.Description;
 import entity.Transaction.Category;
 import entity.Transaction.Type;
 
@@ -39,11 +40,16 @@ public class Transaction {
     }
   }
 
-  private double amount; // Amount of the transaction
-  private Type type; //Type of the transaction (INCOME or EXPENSE)
-  private Category category; // Category of the transaction (e.g., FOOD, SALARY)
-  private String description; // Description or note about the transaction
-  private LocalDate date; // The date the transaction occurred
+  @Description("Amount of the transaction. This is a money field")
+  private double amount;
+  @Description("Type of the transaction")
+  private Type type;
+  @Description("Category of the transaction")
+  private Category category;
+  @Description("Description or note about the transaction. Should be start with 'Description:'")
+  private String description;
+  @Description("The date the transaction occurred")
+  private LocalDate date;
 
   public double getAmount() {
       return amount;
