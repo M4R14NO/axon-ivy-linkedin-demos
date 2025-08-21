@@ -1,0 +1,258 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "198AD1894B2A2615",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part2.Transactions.TransactionsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "guid" : "198C64DD99B26230"
+      },
+      "visual" : {
+        "at" : { "x" : 2832, "y" : 624 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f11" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 3152, "y" : 624 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "198C64DD99B83C7B"
+      },
+      "visual" : {
+        "at" : { "x" : 2832, "y" : 720 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 2968, "y" : 720 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "go",
+      "config" : {
+        "guid" : "198C64DD99B57522"
+      },
+      "visual" : {
+        "at" : { "x" : 2832, "y" : 848 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f14" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 3752, "y" : 848 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "name" : "create transaction",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "import entity.Transaction;",
+            "import assistant.TransactionAssistant;",
+            "",
+            "TransactionAssistant assistant = new TransactionAssistant();",
+            "",
+            "// create transaction",
+            "Transaction newobject = assistant.createFromMessage(in.message);",
+            "",
+            "// persist to repo",
+            "TransactionRepository.getInstance().create(newobject);",
+            "",
+            "//reload",
+            "in.transactions.add(newobject);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 3608, "y" : 848 }
+      },
+      "connect" : [
+        { "id" : "f10", "to" : "f7" }
+      ]
+    }, {
+      "id" : "f11",
+      "type" : "Script",
+      "name" : "load all",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "in.transactions = TransactionRepository.getInstance().findAll();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2960, "y" : 624 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f13",
+      "type" : "Script",
+      "name" : "load all",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "in.transactions = TransactionRepository.getInstance().findAll();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2928, "y" : 976 }
+      },
+      "connect" : [
+        { "id" : "f17", "to" : "f7", "via" : [ { "x" : 3752, "y" : 976 } ] }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "Alternative",
+      "name" : "empty message?",
+      "config" : {
+        "conditions" : {
+          "f15" : "org.apache.commons.lang3.StringUtils.isNotBlank(in.message)",
+          "f16" : ""
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2928, "y" : 848 },
+        "labelOffset" : { "x" : 8, "y" : -24 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f13", "label" : {
+            "name" : "yes",
+            "offset" : { "x" : 17, "y" : -3 }
+          } },
+        { "id" : "f15", "to" : "f18", "label" : {
+            "name" : "no",
+            "offset" : { "x" : -167, "y" : 14 }
+          }, "color" : "default" }
+      ]
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "prepare options",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import enums.TransactionAction;",
+            "for (TransactionAction action : TransactionAction.values()) {",
+            "  in.options.add(action.getOption());",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 3096, "y" : 848 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f20", "color" : "default" }
+      ]
+    }, {
+      "id" : "f20",
+      "type" : "SubProcessCall",
+      "name" : "detect action",
+      "config" : {
+        "processCall" : "AI Processes/DecisionMaker:decide(List<entity.Option>,String)",
+        "call" : {
+          "map" : {
+            "param.options" : "in.options",
+            "param.message" : "in.message"
+          }
+        },
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.selectedOption" : "result.selectedOption"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 3256, "y" : 848 }
+      },
+      "connect" : [
+        { "id" : "f21", "to" : "f22", "color" : "default" }
+      ]
+    }, {
+      "id" : "f22",
+      "type" : "Alternative",
+      "name" : "action?",
+      "config" : {
+        "conditions" : {
+          "f23" : "enums.TransactionAction.INSERT.id.equals(in.selectedOption.id)",
+          "f25" : "enums.TransactionAction.SEARCH.id.equals(in.selectedOption.id)"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 3392, "y" : 848 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f23", "to" : "f8", "label" : {
+            "name" : "create",
+            "offset" : { "x" : -7, "y" : 14 }
+          }, "color" : "default" },
+        { "id" : "f25", "to" : "f24", "via" : [ { "x" : 3392, "y" : 752 } ], "label" : {
+            "name" : "search",
+            "segment" : 1.22,
+            "offset" : { "x" : 47, "y" : 9 }
+          } }
+      ]
+    }, {
+      "id" : "f24",
+      "type" : "Script",
+      "name" : "search transactions",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "import assistant.TransactionAssistant;",
+            "import entity.TransactionSearchCriteria;",
+            "",
+            "// Use AI to generate search criteria",
+            "TransactionAssistant assistant = new TransactionAssistant();",
+            "TransactionSearchCriteria criteria = assistant",
+            "  .createSearchCriteriaFromMessage(in.message);",
+            "",
+            "// Use criteria to search for transactions from the Axon Ivy repo",
+            "in.transactions =  TransactionRepository.getInstance()",
+            "  .findBySearchCriteria(criteria);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 3608, "y" : 752 }
+      },
+      "connect" : [
+        { "id" : "f26", "to" : "f7", "via" : [ { "x" : 3752, "y" : 752 } ] }
+      ]
+    } ]
+}
