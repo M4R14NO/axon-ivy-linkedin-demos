@@ -1,0 +1,270 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "198CD590E93AC9C8",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part3.Transactions.TransactionsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "guid" : "198EA3A8EA2EB0A6"
+      },
+      "visual" : {
+        "at" : { "x" : 1936, "y" : 480 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f11" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 2256, "y" : 480 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "198EA3A8EA2CFF95"
+      },
+      "visual" : {
+        "at" : { "x" : 1936, "y" : 576 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 2072, "y" : 576 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "go",
+      "config" : {
+        "guid" : "198EA3A8EA2FEC3F"
+      },
+      "visual" : {
+        "at" : { "x" : 1936, "y" : 704 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f14" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 2856, "y" : 704 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "name" : "create transaction",
+      "config" : {
+        "output" : {
+          "code" : "in.transactions.add(in.agentResponse.transaction);"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2712, "y" : 704 }
+      },
+      "connect" : [
+        { "id" : "f10", "to" : "f7" }
+      ]
+    }, {
+      "id" : "f11",
+      "type" : "Script",
+      "name" : "load all",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "in.transactions = TransactionRepository.getInstance().findAll();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2064, "y" : 480 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f13",
+      "type" : "Script",
+      "name" : "load all",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import repo.TransactionRepository;",
+            "in.transactions = TransactionRepository.getInstance().findAll();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2032, "y" : 832 }
+      },
+      "connect" : [
+        { "id" : "f17", "to" : "f7", "via" : [ { "x" : 2856, "y" : 832 } ] }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "Alternative",
+      "name" : "empty message?",
+      "config" : {
+        "conditions" : {
+          "f18" : "org.apache.commons.lang3.StringUtils.isNotBlank(in.message)",
+          "f16" : ""
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2032, "y" : 704 },
+        "labelOffset" : { "x" : 8, "y" : -24 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f13", "label" : {
+            "name" : "yes",
+            "offset" : { "x" : 17, "y" : -3 }
+          } },
+        { "id" : "f18", "to" : "f15" }
+      ]
+    }, {
+      "id" : "f22",
+      "type" : "Alternative",
+      "name" : "action?",
+      "config" : {
+        "conditions" : {
+          "f23" : "in.agentResponse.action == enums.TransactionAction.INSERT",
+          "f25" : "in.agentResponse.action == enums.TransactionAction.SEARCH",
+          "f28" : "in.agentResponse.action == enums.TransactionAction.DELETE",
+          "f30" : "in.agentResponse.action == enums.TransactionAction.UPDATE",
+          "f32" : "org.apache.commons.lang3.StringUtils.isNotBlank(in.agentResponse.errorMessage)"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2496, "y" : 704 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f23", "to" : "f8", "label" : {
+            "name" : "create",
+            "offset" : { "x" : -7, "y" : 14 }
+          }, "color" : "default" },
+        { "id" : "f25", "to" : "f24", "via" : [ { "x" : 2496, "y" : 608 } ], "label" : {
+            "name" : "search",
+            "segment" : 1.22,
+            "offset" : { "x" : 47, "y" : 9 }
+          } },
+        { "id" : "f28", "to" : "f20", "via" : [ { "x" : 2496, "y" : 496 } ] },
+        { "id" : "f30", "to" : "f21", "via" : [ { "x" : 2496, "y" : 400 } ] },
+        { "id" : "f32", "to" : "f27", "via" : [ { "x" : 2496, "y" : 296 } ] }
+      ]
+    }, {
+      "id" : "f24",
+      "type" : "Script",
+      "name" : "search transactions",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.transactions" : "in.agentResponse.transactions"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2712, "y" : 608 }
+      },
+      "connect" : [
+        { "id" : "f26", "to" : "f7", "via" : [ { "x" : 2856, "y" : 608 } ] }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "Script",
+      "name" : "Call agent",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import agent.TransactionAgent;",
+            "TransactionAgent agent = new TransactionAgent();",
+            "in.agentResponse = agent.runTool(in.message);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2232, "y" : 704 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f22" }
+      ]
+    }, {
+      "id" : "f20",
+      "type" : "Script",
+      "name" : "delete transaction",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import financial.tracker.part3.Transactions.TransactionsData;",
+            "import entity.Transaction;",
+            "",
+            "for (int i=0; i< in.transactions.size(); i++) {",
+            "  if (in.transactions.get(i).id == in.agentResponse.transaction.id) {",
+            "    in.transactions.removeAt(i);",
+            "    break;",
+            "  }",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2712, "y" : 496 }
+      },
+      "connect" : [
+        { "id" : "f29", "to" : "f7", "via" : [ { "x" : 2856, "y" : 496 } ] }
+      ]
+    }, {
+      "id" : "f21",
+      "type" : "Script",
+      "name" : "update transaction",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import financial.tracker.part3.Transactions.TransactionsData;",
+            "import entity.Transaction;",
+            "",
+            "for (int i=0; i< in.transactions.size(); i++) {",
+            "  if (in.transactions.get(i).id.equals(in.agentResponse.transaction.id)) {",
+            "    in.transactions.set(i, in.agentResponse.transaction);",
+            "    break;",
+            "  }",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 2712, "y" : 400 }
+      },
+      "connect" : [
+        { "id" : "f31", "to" : "f7", "via" : [ { "x" : 2856, "y" : 400 } ] }
+      ]
+    }, {
+      "id" : "f27",
+      "type" : "Script",
+      "name" : "handle error",
+      "visual" : {
+        "at" : { "x" : 2712, "y" : 296 }
+      },
+      "connect" : [
+        { "id" : "f33", "to" : "f7", "via" : [ { "x" : 2856, "y" : 296 } ] }
+      ]
+    } ]
+}

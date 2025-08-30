@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ic="http://ivyteam.ch/jsf/component">
+  <h:body>
+    <ui:composition template="/layouts/frame-10-full-width.xhtml">
+      <ui:define name="title">Transaction Manager</ui:define>
+      <ui:define name="content">
+
+        <h:form id="form">
+          <h:panelGroup id="error-panel" layout="block">
+            <p:messages id="error-messages" />
+          </h:panelGroup>
+          <!-- Input area for message -->
+          <div class="w-full flex mb-3">
+            <p:inputText id="msg" value="#{data.message}" styleClass="col-8 mr-3" />
+            <p:commandButton value="Go!"
+              actionListener="#{logic.go}"
+              update="transaction-table error-messages"/>
+          </div>
+
+          <!-- Data Table for transactions -->
+          <p:dataTable id="transaction-table"
+			value="#{data.transactions}"
+            var="item"
+            emptyMessage="No transactions yet"
+            styleClass="mt4">
+            <p:column headerText="Amount">
+              <h:outputText value="#{item.amount}" />
+            </p:column>
+            <p:column headerText="Type">
+              <h:outputText value="#{item.type.displayName}" />
+            </p:column>
+            <p:column headerText="Category">
+              <h:outputText value="#{item.category.displayName}" />
+            </p:column>
+            <p:column headerText="Description">
+              <h:outputText value="#{item.description}" />
+            </p:column>
+            <p:column headerText="Date">
+              <h:outputText value="#{item.date}" />
+            </p:column>
+          </p:dataTable>
+        </h:form>
+
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>
