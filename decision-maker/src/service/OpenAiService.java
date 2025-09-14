@@ -15,9 +15,8 @@ public final class OpenAiService {
    */
   public static final OpenAiChatModel getJsonChatModel() {
     return OpenAiChatModel.builder()
-        .modelName(OpenAiChatModelName.GPT_4_1_MINI) // Uses the GPT-4.1-mini model
-        .temperature(Double.valueOf(0)) // Ensures deterministic output
-        .apiKey(Ivy.var().get("OpenAI.ApiKey")) // Retrieves API key from Ivy environment variables
+    	.baseUrl("http://localhost:11434/v1/")
+        .modelName("qwen3:30b")
         .supportedCapabilities(Capability.RESPONSE_FORMAT_JSON_SCHEMA) // Requests JSON schema output
         .strictJsonSchema(true) // Enforces strict compliance with the provided JSON schema
         .build();

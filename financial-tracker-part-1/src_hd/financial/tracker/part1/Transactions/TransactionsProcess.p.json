@@ -73,10 +73,15 @@
       "config" : {
         "output" : {
           "code" : [
+            "import entity.Transaction;",
+            "",
             "import assistant.TransactionAssistant;",
             "",
             "TransactionAssistant assistant = new TransactionAssistant();",
-            "in.transactions.add(assistant.createFromMessage(in.message));"
+            "ivy.log.debug(\"message = \" + in.message);",
+            "Transaction t = assistant.createFromMessage(in.message);",
+            "",
+            "in.transactions.add(t);"
           ]
         }
       },

@@ -2,6 +2,7 @@ package assistant;
 
 import java.util.Date;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
@@ -33,7 +34,9 @@ public class TransactionAssistant {
         .build();
 
     // Delegate to the generated stub interface method
-    return assistant.createTransaction(message, new Date());
+    Transaction t = assistant.createTransaction(message, new Date());
+    Ivy.log().info("Transaction: t = " + t);
+    return t;
   }
 
   /**

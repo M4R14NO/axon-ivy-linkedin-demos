@@ -39,15 +39,24 @@ public class OpenAiService {
    * - Specifies that the model supports JSON schema response format.
    * - Enables strict JSON schema validation on responses.
    */
+  
   public OpenAiService() {
     this.model = OpenAiChatModel.builder()
-        .modelName(OpenAiChatModelName.GPT_4_1_MINI)
-        .temperature(Double.valueOf(0))
-        .apiKey(Ivy.var().get("OpenAI.ApiKey"))
+        .baseUrl("http://localhost:11434/v1/")
+        .modelName("qwen3:30b")	
         .supportedCapabilities(Capability.RESPONSE_FORMAT_JSON_SCHEMA)
         .strictJsonSchema(true).build();
   }
 
+//  public OpenAiService() {
+//	    this.model = OpenAiChatModel.builder()
+//	        .modelName(OpenAiChatModelName.GPT_4_1_MINI)
+//	        .temperature(Double.valueOf(0))
+//	        .apiKey(Ivy.var().get("OpenAI.ApiKey"))
+//	        .supportedCapabilities(Capability.RESPONSE_FORMAT_JSON_SCHEMA)
+//	        .strictJsonSchema(true).build();
+//	  }
+  
   /**
    * Generates a response from the OpenAI model formatted as JSON following
    * the provided JSON schema, based on the input message.
