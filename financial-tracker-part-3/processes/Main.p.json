@@ -24,17 +24,23 @@
       "id" : "f1",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 512, "y" : 64 },
+        "at" : { "x" : 768, "y" : 64 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     }, {
       "id" : "f3",
       "type" : "DialogCall",
+      "name" : "pass transcription to LLM",
       "config" : {
-        "dialog" : "financial.tracker.part3.Transactions:start()"
+        "dialog" : "financial.tracker.part3.Transactions:start(String)",
+        "call" : {
+          "map" : {
+            "param.textToProcess" : "in.transcription"
+          }
+        }
       },
       "visual" : {
-        "at" : { "x" : 384, "y" : 64 }
+        "at" : { "x" : 632, "y" : 64 }
       },
       "connect" : [
         { "id" : "f4", "to" : "f1", "color" : "default" }
@@ -42,14 +48,80 @@
     }, {
       "id" : "f5",
       "type" : "DialogCall",
+      "name" : "record audio",
       "config" : {
-        "dialog" : "financial.tracker.part3.AudioInput:start()"
+        "dialog" : "financial.tracker.part3.AudioInput:start()",
+        "output" : {
+          "code" : "ivy.log.info(result);"
+        }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 64 }
+        "at" : { "x" : 184, "y" : 64 }
       },
       "connect" : [
-        { "id" : "f6", "to" : "f3", "color" : "default" }
+        { "id" : "f6", "to" : "f9", "color" : "default" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "RestClientCall",
+      "name" : "transcribe audio",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "ac875689-9121-441e-8047-09274cddd2b4",
+          "path" : "/asr",
+          "queryParams" : {
+            "encode" : "",
+            "task" : "",
+            "language" : "\"de\"",
+            "initial_prompt" : "",
+            "output" : ""
+          },
+          "headers" : {
+            "Accept" : "multipart/form-data"
+          }
+        },
+        "body" : {
+          "type" : "FORM",
+          "mediaType" : "multipart/form-data",
+          "form" : {
+            "audio_file" : [ "in.audioFile" ]
+          },
+          "entity" : {
+            "type" : "localhost.client.BodyAsrAsrPost"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.transcription" : "response.readEntity(String.class) as String"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 480, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f3", "color" : "default" }
+      ]
+    }, {
+      "id" : "f9",
+      "type" : "Script",
+      "name" : "read file from wf documents",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.audioFile" : "(ivy.wf.documents().getAll().getLast() as ch.ivyteam.ivy.workflow.document.IDocument).read().asJavaFile()"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 328, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f10", "to" : "f7" }
       ]
     } ]
 }

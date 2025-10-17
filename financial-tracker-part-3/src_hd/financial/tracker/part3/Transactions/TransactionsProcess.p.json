@@ -8,9 +8,17 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start()",
+      "name" : "start(String)",
       "config" : {
         "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "textToProcess", "type" : "String", "desc" : "" }
+          ],
+          "map" : {
+            "out.message" : "param.textToProcess"
+          }
+        },
         "guid" : "198EA3A8EA2EB0A6"
       },
       "visual" : {

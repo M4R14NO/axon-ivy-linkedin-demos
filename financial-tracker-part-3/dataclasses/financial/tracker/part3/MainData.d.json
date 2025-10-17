@@ -2,5 +2,14 @@
   "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
   "simpleName" : "MainData",
   "namespace" : "financial.tracker.part3",
-  "isBusinessCaseData" : false
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "audioFile",
+    "type" : "java.io.File",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transcription",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
 }
