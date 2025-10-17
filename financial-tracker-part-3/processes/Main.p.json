@@ -9,7 +9,10 @@
       "type" : "RequestStart",
       "name" : "start",
       "config" : {
-        "signature" : "start"
+        "signature" : "start",
+        "request" : {
+          "name" : "Financial Tracker Part 3"
+        }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
