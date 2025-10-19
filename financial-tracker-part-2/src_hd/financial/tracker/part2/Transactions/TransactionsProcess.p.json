@@ -164,6 +164,9 @@
         "output" : {
           "code" : [
             "import enums.TransactionAction;",
+            "in.options.clear();",
+            "",
+            "",
             "for (TransactionAction action : TransactionAction.values()) {",
             "  in.options.add(action.getOption());",
             "}"

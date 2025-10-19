@@ -1,0 +1,46 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "Transaktion",
+  "namespace" : "financial.tracker.part3",
+  "isBusinessCaseData" : false,
+  "entity" : {
+    "tableName" : "transaktion"
+  },
+  "fields" : [ {
+    "name" : "id",
+    "type" : "Integer",
+    "comment" : "Identifier",
+    "modifiers" : [ "PERSISTENT", "ID", "GENERATED" ],
+    "annotations" : [ "@dev.langchain4j.model.output.structured.Description(\"ID of the transaction. NEVER change this field\")" ],
+    "entity" : {
+      "orphanRemoval" : false
+    }
+  }, {
+    "name" : "amount",
+    "type" : "java.lang.Double",
+    "modifiers" : [ "PERSISTENT" ],
+    "annotations" : [ "@dev.langchain4j.model.output.structured.Description(\"Amount of the Transaction\")" ],
+    "entity" : {
+      "cascadeTypes" : [ "PERSIST", "MERGE" ],
+      "orphanRemoval" : false
+    }
+  }, {
+    "name" : "typ",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ],
+    "annotations" : [ "@dev.langchain4j.model.output.structured.Description(\"Type of the Transaction: INCOME, EXPENSE or NONE\")" ],
+    "entity" : {
+      "cascadeTypes" : [ "PERSIST", "MERGE" ],
+      "orphanRemoval" : false
+    }
+  }, {
+    "name" : "description",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ],
+    "annotations" : [ "@dev.langchain4j.model.output.structured.Description(\"Description or note about the transaction\")" ],
+    "entity" : {
+      "cascadeTypes" : [ "PERSIST", "MERGE" ],
+      "orphanRemoval" : false
+    }
+  } ]
+}

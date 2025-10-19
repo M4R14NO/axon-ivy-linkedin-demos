@@ -1,2 +1,12 @@
 # yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/rest-clients.json
 RestClients:
+  #Whisper ASR Webservice is a general-purpose speech recognition webservice.
+  whisper-asr-webservice (Whisper Asr Webservice):
+    UUID: ac875689-9121-441e-8047-09274cddd2b4
+    Url: http://localhost:9000/
+    Features:
+    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    - org.glassfish.jersey.media.multipart.MultiPartFeature
+    OpenAPI:
+      SpecUrl: http://localhost:9000/openapi.json
+      Namespace: localhost.client
