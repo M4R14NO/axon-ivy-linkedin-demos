@@ -1,0 +1,20 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "5dd51732-332e-4525-b7a1-8d4c7e2fac3c",
+  "components" : [ {
+    "cid" : "composite1",
+    "type" : "Composite",
+    "config" : {
+      "id" : "audiorec",
+      "name" : "financial.tracker.part3.AudioRecording",
+      "startMethod" : "start"
+    }
+  }, {
+    "cid" : "composite2",
+    "type" : "Composite",
+    "config" : {
+      "name" : "financial.tracker.part3.JavaScriptComponent",
+      "startMethod" : "start"
+    }
+  } ]
+}
