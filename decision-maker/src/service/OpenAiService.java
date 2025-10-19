@@ -15,7 +15,7 @@ public final class OpenAiService {
    */
   public static final OpenAiChatModel getJsonChatModel() {
     return OpenAiChatModel.builder()
-    	.baseUrl("http://localhost:11434/v1/")
+    	.baseUrl(Ivy.var().get("Ollama.baseUrl"))
         .modelName("qwen3:30b")
         .supportedCapabilities(Capability.RESPONSE_FORMAT_JSON_SCHEMA) // Requests JSON schema output
         .strictJsonSchema(true) // Enforces strict compliance with the provided JSON schema

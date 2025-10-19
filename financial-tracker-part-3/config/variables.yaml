@@ -3,3 +3,6 @@ Variables:
   OpenAI:
     #[password]
     ApiKey: ${decrypt:}
+  Ollama:
+    #[password]
+    baseUrl: ${decrypt:}
