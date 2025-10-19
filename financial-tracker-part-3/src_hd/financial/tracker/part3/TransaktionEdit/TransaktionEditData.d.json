@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "TransaktionEditData",
+  "namespace" : "financial.tracker.part3.TransaktionEdit",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "transcription",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transaktion",
+    "type" : "financial.tracker.part3.Transaktion",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

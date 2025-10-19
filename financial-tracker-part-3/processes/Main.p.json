@@ -123,5 +123,86 @@
       "connect" : [
         { "id" : "f10", "to" : "f7" }
       ]
+    }, {
+      "id" : "f11",
+      "type" : "RequestStart",
+      "name" : "start2",
+      "config" : {
+        "signature" : "start2"
+      },
+      "visual" : {
+        "at" : { "x" : 632, "y" : 144 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f13",
+      "type" : "RequestStart",
+      "name" : "start3",
+      "config" : {
+        "signature" : "start3"
+      },
+      "visual" : {
+        "at" : { "x" : 208, "y" : 240 }
+      },
+      "connect" : [
+        { "id" : "f15", "to" : "f18" }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "DialogCall",
+      "name" : "Check Transaktion",
+      "config" : {
+        "dialog" : "financial.tracker.part3.TransaktionEdit:start(String,financial.tracker.part3.Transaktion)",
+        "call" : {
+          "map" : {
+            "param.transcription" : "in.transcription",
+            "param.transaktion" : "in.transaktion"
+          }
+        },
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.transaktion" : "result.transaktion"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 496, "y" : 240 }
+      },
+      "connect" : [
+        { "id" : "f17", "to" : "f16" }
+      ]
+    }, {
+      "id" : "f16",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 688, "y" : 240 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "Message to Transaktion",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import assistant.TransaktionAssistant;",
+            "",
+            "in.transcription = \"Received 200 dollars for consulting side quest\";",
+            "TransaktionAssistant a = new TransaktionAssistant();",
+            "",
+            "out.transaktion = a.createFromMessage(in.transcription);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 344, "y" : 241 },
+        "size" : { "width" : 128, "height" : 62 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f14", "color" : "default" }
+      ]
     } ]
 }
