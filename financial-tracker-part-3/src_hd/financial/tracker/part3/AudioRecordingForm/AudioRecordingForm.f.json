@@ -9,12 +9,5 @@
       "name" : "financial.tracker.part3.AudioRecording",
       "startMethod" : "start"
     }
-  }, {
-    "cid" : "composite2",
-    "type" : "Composite",
-    "config" : {
-      "name" : "financial.tracker.part3.JavaScriptComponent",
-      "startMethod" : "start"
-    }
   } ]
 }

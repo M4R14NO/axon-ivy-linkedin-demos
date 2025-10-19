@@ -21,21 +21,24 @@
 			icon="pi pi-stop" styleClass="p-button-danger"
 			onclick="stopRecording()" />
 
-
 		<audio id="audioPlayback" controls="controls"
 			style="margin-top: 1rem; width: 100%;"></audio>
+		<br/>
+
+		<p:commandButton value="Aufnahme speichern" icon="pi pi-save"
+			action="#{audioBean.saveAudio}" onclick="return prepareSubmit()"
+			styleClass="p-button-primary" />
 
 		<!-- Base64 audio data -->
 		<h:inputHidden id="audioData" value="#{audioBean.audioBase64}" />
 
 		<p:separator />
 
-		<p:commandButton value="Speichern" icon="pi pi-save"
-			action="#{audioBean.saveAudio}" onclick="return prepareSubmit()"
-			styleClass="p-button-primary" />
+
 
 	</h:panelGroup>
 
+	<h:outputScript library="js" name="audio-recorder.js" />
 
 </cc:implementation>
 
