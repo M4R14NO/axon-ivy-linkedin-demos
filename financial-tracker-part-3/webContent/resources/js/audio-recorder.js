@@ -17,15 +17,18 @@ function startRecording() {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
                 const reader = new FileReader();
                 reader.readAsDataURL(audioBlob);
-				reader.onloadend = () => {
-				    const base64AudioMessage = reader.result;
-				    document.getElementById('form:audiorec:audioData').value = base64AudioMessage;
-				    console.log("Base64 length:", base64AudioMessage.length);
+                reader.onloadend = () => {
+                    const base64AudioMessage = reader.result;
+                    document.getElementById('form:audiorec:audioData').value = base64AudioMessage;
+                    console.log("Base64 length:", base64AudioMessage.length);
 
-				    // Optional: Vorspielen
-				    const audio = document.getElementById("audioPlayback");
-				    audio.src = base64AudioMessage;
-				};
+                    // Optional: Vorspielen
+                    const audio = document.getElementById("audioPlayback");
+                    audio.src = base64AudioMessage;
+                    
+                    // WICHTIG: Benachrichtige Server, dass Audio bereit ist
+                    notifyAudioReady();
+                };
 
             });
         });
@@ -41,8 +44,7 @@ function prepareSubmit() {
   const audioData = document.getElementById('form:audiorec:audioData').value;
   if (!audioData || audioData.trim() === "") {
     alert("Bitte zuerst eine Aufnahme starten und stoppen, bevor du speicherst!");
-    return false; // verhindere Submit
+    return false;
   }
   return true;
 }
-
