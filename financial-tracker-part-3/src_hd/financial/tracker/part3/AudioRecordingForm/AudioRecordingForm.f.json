@@ -14,21 +14,42 @@
       }
     }
   }, {
-    "cid" : "button5",
-    "type" : "Button",
+    "cid" : "fieldset7",
+    "type" : "Fieldset",
     "config" : {
-      "id" : "transcribeButton",
-      "name" : "transcribe recording",
-      "action" : "#{logic.transcribe}",
-      "icon" : "si si-chat-translate"
-    }
-  }, {
-    "cid" : "textarea6",
-    "type" : "Textarea",
-    "config" : {
-      "label" : "Textarea",
-      "value" : "#{data.asrResult}",
-      "rows" : "5"
+      "components" : [ {
+        "cid" : "layout8",
+        "type" : "Layout",
+        "config" : {
+          "components" : [ {
+            "cid" : "button9",
+            "type" : "Button",
+            "config" : {
+              "name" : "ASR (with german query param)",
+              "action" : "#{logic.restAsrDe}"
+            }
+          }, {
+            "cid" : "button5",
+            "type" : "Button",
+            "config" : {
+              "id" : "transcribeButton",
+              "name" : "ASR (without language query param)",
+              "action" : "#{logic.transcribe}",
+              "icon" : "si si-chat-translate"
+            }
+          } ]
+        }
+      }, {
+        "cid" : "textarea6",
+        "type" : "Textarea",
+        "config" : {
+          "label" : "ASR Result",
+          "value" : "#{data.asrResult}",
+          "rows" : "5"
+        }
+      } ],
+      "legend" : "Automatic Speech Recognition",
+      "collapsible" : true
     }
   }, {
     "cid" : "layout2",

@@ -15,5 +15,9 @@
     "name" : "audioReady",
     "type" : "Boolean",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "stream",
+    "type" : "java.io.ByteArrayInputStream",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }
