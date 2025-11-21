@@ -1,0 +1,116 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "779011c8-2a6c-4090-8d4b-4253a4cc523f",
+  "components" : [ {
+    "cid" : "composite5",
+    "type" : "Composite",
+    "config" : {
+      "id" : "audiorec",
+      "name" : "financial.tracker.part3.AudioRecording",
+      "startMethod" : "start"
+    }
+  }, {
+    "cid" : "layout17",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "fieldset9",
+        "type" : "Fieldset",
+        "config" : {
+          "id" : "voice2textId",
+          "components" : [ {
+            "cid" : "button10",
+            "type" : "Button",
+            "config" : {
+              "id" : "voice2text",
+              "name" : "transcribe voice",
+              "action" : "#{logic.voice2text}",
+              "icon" : "si si-graphic-tablet-drawing-pen"
+            }
+          }, {
+            "cid" : "textarea11",
+            "type" : "Textarea",
+            "config" : {
+              "label" : "Textarea",
+              "value" : "#{data.asrAudio.asrResult}",
+              "rows" : "5"
+            }
+          } ],
+          "legend" : "Voice to Text"
+        }
+      }, {
+        "cid" : "fieldset7",
+        "type" : "Fieldset",
+        "config" : {
+          "id" : "text2Transaktion",
+          "components" : [ {
+            "cid" : "button6",
+            "type" : "Button",
+            "config" : {
+              "id" : "llmButton",
+              "name" : "Transcript to Transaction Object",
+              "action" : "#{logic.text2transaktion}",
+              "icon" : "si si-cog-double-2"
+            }
+          }, {
+            "cid" : "layout16",
+            "type" : "Layout",
+            "config" : {
+              "components" : [ {
+                "cid" : "input15",
+                "type" : "Input",
+                "config" : {
+                  "label" : "Typ",
+                  "value" : "#{data.transaktion.typ}"
+                }
+              }, {
+                "cid" : "input12",
+                "type" : "Input",
+                "config" : {
+                  "label" : "Amount",
+                  "value" : "#{data.transaktion.amount}",
+                  "type" : "NUMBER"
+                }
+              } ]
+            }
+          }, {
+            "cid" : "input13",
+            "type" : "Input",
+            "config" : {
+              "label" : "Description",
+              "value" : "#{data.transaktion.description}"
+            }
+          } ],
+          "legend" : "Text to Transaktion"
+        }
+      } ]
+    }
+  }, {
+    "cid" : "layout2",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "button3",
+        "type" : "Button",
+        "config" : {
+          "name" : "Cancel",
+          "action" : "#{ivyWorkflowView.cancel()}",
+          "variant" : "SECONDARY",
+          "style" : "FLAT",
+          "processOnlySelf" : true
+        }
+      }, {
+        "cid" : "button4",
+        "type" : "Button",
+        "config" : {
+          "name" : "Proceed",
+          "action" : "#{logic.close}",
+          "type" : "SUBMIT",
+          "icon" : "si si-check-1"
+        }
+      } ],
+      "type" : "FLEX",
+      "justifyContent" : "END"
+    }
+  } ]
+}

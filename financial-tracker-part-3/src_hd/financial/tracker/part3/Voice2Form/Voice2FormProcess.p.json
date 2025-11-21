@@ -1,0 +1,202 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "19AA805E2EDF897F",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part3.Voice2Form.Voice2FormData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "transaktion", "type" : "financial.tracker.part3.Transaktion", "desc" : "" }
+          ],
+          "map" : {
+            "result.transaktion" : "in.transaktion"
+          }
+        },
+        "guid" : "19AA805E2EFA340B"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "19AA805E2F1A39B8"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 264 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f17",
+      "type" : "HtmlDialogEventStart",
+      "name" : "voice2text",
+      "config" : {
+        "guid" : "19AA812C0885C0E2"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 120 }
+      },
+      "connect" : [
+        { "id" : "f14", "to" : "f18" }
+      ]
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "get audioBytes from audioBean",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.AudioBean;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "// Hole die audioBean aus dem JSF Context",
+            "FacesContext context = FacesContext.getCurrentInstance();",
+            "AudioBean audioBean =  context.getApplication()",
+            "    .getELResolver()",
+            "    .getValue(context.getELContext(), null, \"audioBean\") as AudioBean;",
+            "",
+            "if (audioBean != null && audioBean.getAudioBytes() != null) {",
+            "    // Kopiere die Daten in die Data Class",
+            "    in.asrAudio.audioBytes = audioBean.getAudioBytes();",
+            "    in.asrAudio.audioReady = audioBean.isAudioReady();",
+            "    out.asrAudio.stream = new java.io.ByteArrayInputStream(in.asrAudio.audioBytes);",
+            "    ivy.log.info(\"Audio bytes retrieved: \" + in.asrAudio.audioBytes.size()+ \" bytes\");",
+            "    ",
+            "    // Hier kannst du jetzt den Whisper REST Call machen",
+            "    // z.B. mit einem REST Client Activity im nächsten Step",
+            "    ",
+            "} else {",
+            "    ivy.log.warn(\"No audio data available in audioBean\");",
+            "    in.asrAudio.asrResult = \"Fehler: Keine Audio-Daten verfügbar\";",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 120 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f10", "color" : "default" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "RestClientCall",
+      "name" : "ASR with german input stream",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "ac875689-9121-441e-8047-09274cddd2b4",
+          "path" : "/asr",
+          "queryParams" : {
+            "encode" : "",
+            "task" : "",
+            "language" : "\"de\"",
+            "initial_prompt" : "",
+            "output" : ""
+          },
+          "headers" : {
+            "Accept" : "multipart/form-data"
+          }
+        },
+        "body" : {
+          "type" : "FORM",
+          "mediaType" : "multipart/form-data",
+          "form" : {
+            "audio_file" : [ "in.asrAudio.stream" ]
+          },
+          "entity" : {
+            "type" : "localhost.client.BodyAsrAsrPost"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.asrAudio.asrResult" : "response.readEntity(String.class) as String"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 392, "y" : 120 },
+        "size" : { "width" : 160, "height" : 62 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f15" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 528, "y" : 120 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "text2transaktion",
+      "config" : {
+        "guid" : "19AA81B8D1ADDD11"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 200 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f9" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 200 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "Script",
+      "name" : "transcript 2 transaktion",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import assistant.TransaktionAssistant;",
+            "",
+            "TransaktionAssistant a = new TransaktionAssistant();",
+            "out.transaktion = a.createFromMessage(in.asrAudio.asrResult);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 200 }
+      },
+      "connect" : [
+        { "id" : "f11", "to" : "f7", "color" : "default" }
+      ]
+    } ]
+}

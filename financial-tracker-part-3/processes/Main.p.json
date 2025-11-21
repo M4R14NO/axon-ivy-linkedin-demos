@@ -227,5 +227,43 @@
       "connect" : [
         { "id" : "f19", "to" : "f14", "color" : "default" }
       ]
+    }, {
+      "id" : "f20",
+      "type" : "RequestStart",
+      "name" : "start4",
+      "config" : {
+        "signature" : "start4"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 408 }
+      },
+      "connect" : [
+        { "id" : "f22", "to" : "f21" }
+      ]
+    }, {
+      "id" : "f21",
+      "type" : "DialogCall",
+      "config" : {
+        "dialog" : "financial.tracker.part3.Voice2Form:start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.transaktion" : "result.transaktion"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 408 }
+      },
+      "connect" : [
+        { "id" : "f24", "to" : "f23" }
+      ]
+    }, {
+      "id" : "f23",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 464, "y" : 408 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }
