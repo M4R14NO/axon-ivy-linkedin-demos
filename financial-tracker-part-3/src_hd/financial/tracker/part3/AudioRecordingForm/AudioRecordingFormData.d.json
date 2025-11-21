@@ -7,5 +7,13 @@
     "name" : "asrResult",
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "audioBytes",
+    "type" : "byte[]",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "audioReady",
+    "type" : "Boolean",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

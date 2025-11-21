@@ -22,6 +22,7 @@ public class AudioBean implements Serializable {
     private String audioBase64;
     private boolean recording = false;
     private boolean audioReady = false;  // NEU
+    private byte[] audioBytes;
 
     public String getAudioBase64() {
         return audioBase64;
@@ -29,8 +30,12 @@ public class AudioBean implements Serializable {
 
     public void setAudioBase64(String audioBase64) {
         this.audioBase64 = audioBase64;
+        updateAudioBytes();
     }
-
+    
+    public byte[] getAudioBytes() {
+        return audioBytes;
+    }
     public boolean isRecording() {
         return recording;
     }
@@ -47,6 +52,7 @@ public class AudioBean implements Serializable {
         this.recording = true;
         this.audioReady = false;
         this.audioBase64 = null;  // Alte Aufnahme löschen bei neuem Start
+        this.audioBytes = null;
         Ivy.log().info("Recording started");
     }
 
@@ -57,7 +63,22 @@ public class AudioBean implements Serializable {
 
     public void setAudioReady() {
         this.audioReady = true;
-        Ivy.log().info("Audio is ready to save");
+        updateAudioBytes();
+        Ivy.log().info("Audio is ready, bytes length: " + (audioBytes != null ? audioBytes.length : 0));    }
+    
+    private void updateAudioBytes() {
+        if (audioBase64 != null && !audioBase64.isEmpty()) {
+            try {
+                String base64Data = audioBase64;
+                if (base64Data.contains(",")) {
+                    base64Data = base64Data.substring(base64Data.indexOf(",") + 1);
+                }
+                this.audioBytes = Base64.getDecoder().decode(base64Data);
+            } catch (Exception e) {
+                Ivy.log().error("Error decoding audio: " + e.toString());
+                this.audioBytes = null;
+            }
+        }
     }
 
     public void saveAudio() {
@@ -66,17 +87,12 @@ public class AudioBean implements Serializable {
             return;
         }
 
-        String base64Data = audioBase64;
-        if (base64Data.contains(",")) {
-            base64Data = base64Data.substring(base64Data.indexOf(",") + 1);
+        if (audioBytes == null) {
+            updateAudioBytes();
         }
 
-        byte[] audioBytes;
-        try {
-            audioBytes = Base64.getDecoder().decode(base64Data);
-            Ivy.log().info("Audio Bytes: " + audioBytes.toString());
-        } catch (IllegalArgumentException e) {
-            Ivy.log().error("Custom Error Msg.: " + e.toString());
+        if (audioBytes == null) {
+            Ivy.log().error("Failed to decode audio bytes");
             return;
         }
 

@@ -57,14 +57,52 @@
         "at" : { "x" : 96, "y" : 120 }
       },
       "connect" : [
-        { "id" : "f8", "to" : "f7" }
+        { "id" : "f8", "to" : "f9" }
       ]
     }, {
       "id" : "f7",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 288, "y" : 120 },
+        "at" : { "x" : 352, "y" : 120 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
+    }, {
+      "id" : "f9",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.AudioBean;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "// Hole die audioBean aus dem JSF Context",
+            "FacesContext context = FacesContext.getCurrentInstance();",
+            "AudioBean audioBean =  context.getApplication()",
+            "    .getELResolver()",
+            "    .getValue(context.getELContext(), null, \"audioBean\") as AudioBean;",
+            "",
+            "if (audioBean != null && audioBean.getAudioBytes() != null) {",
+            "    // Kopiere die Daten in die Data Class",
+            "    in.audioBytes = audioBean.getAudioBytes();",
+            "    in.audioReady = audioBean.isAudioReady();",
+            "    ",
+            "    ivy.log.info(\"Audio bytes retrieved: \" + in.audioBytes.size()+ \" bytes\");",
+            "    ",
+            "    // Hier kannst du jetzt den Whisper REST Call machen",
+            "    // z.B. mit einem REST Client Activity im nächsten Step",
+            "    ",
+            "} else {",
+            "    ivy.log.warn(\"No audio data available in audioBean\");",
+            "    in.asrResult = \"Fehler: Keine Audio-Daten verfügbar\";",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 120 }
+      },
+      "connect" : [
+        { "id" : "f10", "to" : "f7", "color" : "default" }
+      ]
     } ]
 }
