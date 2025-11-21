@@ -10,6 +10,23 @@
       "startMethod" : "start"
     }
   }, {
+    "cid" : "button5",
+    "type" : "Button",
+    "config" : {
+      "id" : "transcribeButton",
+      "name" : "transcribe recording",
+      "action" : "#{logic.transcribe}",
+      "icon" : "si si-chat-translate"
+    }
+  }, {
+    "cid" : "textarea6",
+    "type" : "Textarea",
+    "config" : {
+      "label" : "Textarea",
+      "value" : "#{data.asrResult}",
+      "rows" : "5"
+    }
+  }, {
     "cid" : "layout2",
     "type" : "Layout",
     "config" : {

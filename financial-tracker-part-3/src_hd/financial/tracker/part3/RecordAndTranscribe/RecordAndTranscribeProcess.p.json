@@ -1,9 +1,9 @@
 {
   "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
-  "id" : "199FCF0CC1D874DC",
+  "id" : "19AA7136F7EBD170",
   "kind" : "HTML_DIALOG",
   "config" : {
-    "data" : "financial.tracker.part3.AudioRecordingForm.AudioRecordingFormData"
+    "data" : "financial.tracker.part3.RecordAndTranscribe.RecordAndTranscribeData"
   },
   "elements" : [ {
       "id" : "f0",
