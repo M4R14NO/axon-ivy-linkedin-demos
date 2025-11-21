@@ -54,7 +54,7 @@
       "type" : "DialogCall",
       "name" : "record audio file",
       "config" : {
-        "dialog" : "financial.tracker.part3.AudioInput:start()",
+        "dialog" : "financial.tracker.part3.AudioRecordingForm:start()",
         "output" : {
           "code" : "ivy.log.info(result);"
         }

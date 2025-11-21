@@ -30,6 +30,7 @@
     }, {
       "id" : "f3",
       "type" : "DialogCall",
+      "name" : "Test Audio Recording",
       "config" : {
         "dialog" : "financial.tracker.part3.AudioRecordingForm:start()"
       },
@@ -38,6 +39,20 @@
       },
       "connect" : [
         { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "ProcessAnnotation",
+      "name" : [
+        "Important: ",
+        "when you embed the audio recording ivy component, the UI element's id of the component needs to be set to \"audiorec\" s.t. it works in combination with the JavaScript file"
+      ],
+      "visual" : {
+        "at" : { "x" : 224, "y" : 160 },
+        "size" : { "width" : 256, "height" : 96 }
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f3" }
       ]
     } ]
 }

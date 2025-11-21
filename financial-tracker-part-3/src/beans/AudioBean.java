@@ -30,7 +30,6 @@ public class AudioBean implements Serializable {
     public void saveAudio() {
         if (audioBase64 == null || audioBase64.isEmpty()) {
         	Ivy.log().info("No audio data to save.");
-            //Ivy("⚠️ No audio data to save.");
             return;
         }
 

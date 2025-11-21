@@ -27,14 +27,6 @@ function startRecording() {
 				    audio.src = base64AudioMessage;
 				};
 
-//                reader.onloadend = () => {
-//                    const base64AudioMessage = reader.result;
-//					document.getElementById('form:audioData').value = base64AudioMessage;
-//
-//                    // Optional: Vorspielen
-//                    const audio = document.getElementById("audioPlayback");
-//                    audio.src = base64AudioMessage;
-//                };
             });
         });
 }

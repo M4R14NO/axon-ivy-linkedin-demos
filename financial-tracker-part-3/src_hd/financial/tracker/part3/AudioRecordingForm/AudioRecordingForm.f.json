@@ -9,5 +9,32 @@
       "name" : "financial.tracker.part3.AudioRecording",
       "startMethod" : "start"
     }
+  }, {
+    "cid" : "layout2",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "button3",
+        "type" : "Button",
+        "config" : {
+          "name" : "Cancel",
+          "action" : "#{ivyWorkflowView.cancel()}",
+          "variant" : "SECONDARY",
+          "style" : "FLAT",
+          "processOnlySelf" : true
+        }
+      }, {
+        "cid" : "button4",
+        "type" : "Button",
+        "config" : {
+          "name" : "Proceed",
+          "action" : "#{logic.close}",
+          "type" : "SUBMIT",
+          "icon" : "si si-check-1"
+        }
+      } ],
+      "type" : "FLEX",
+      "justifyContent" : "END"
+    }
   } ]
 }
