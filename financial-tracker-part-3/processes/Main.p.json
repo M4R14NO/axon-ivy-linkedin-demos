@@ -232,7 +232,10 @@
       "type" : "RequestStart",
       "name" : "start4",
       "config" : {
-        "signature" : "start4"
+        "signature" : "start4",
+        "request" : {
+          "name" : "Voice 2 Form Demo"
+        }
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 408 }
