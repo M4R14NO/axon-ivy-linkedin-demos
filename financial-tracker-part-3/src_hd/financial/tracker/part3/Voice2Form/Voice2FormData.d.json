@@ -11,5 +11,13 @@
     "name" : "asrAudio",
     "type" : "financial.tracker.part3.AudioRecordingForm.AsrAudio",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transaktionen",
+    "type" : "List<financial.tracker.part3.Transaktion>",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "end2end",
+    "type" : "Boolean",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

@@ -12,8 +12,8 @@
     "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
   }, {
-    "name" : "transaktion",
-    "type" : "financial.tracker.part3.Transaktion",
+    "name" : "transaktionen",
+    "type" : "List<financial.tracker.part3.Transaktion>",
     "modifiers" : [ "PERSISTENT" ]
   } ]
 }

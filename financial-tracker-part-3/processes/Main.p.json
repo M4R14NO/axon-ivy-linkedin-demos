@@ -182,14 +182,13 @@
         "dialog" : "financial.tracker.part3.TransaktionEdit:start(String,financial.tracker.part3.Transaktion)",
         "call" : {
           "map" : {
-            "param.transcription" : "in.transcription",
-            "param.transaktion" : "in.transaktion"
+            "param.transcription" : "in.transcription"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.transaktion" : "result.transaktion"
+            "out.transaktionen" : "result.transaktion"
           }
         }
       },
@@ -216,7 +215,7 @@
             "import assistant.TransaktionAssistant;",
             "",
             "TransaktionAssistant a = new TransaktionAssistant();",
-            "out.transaktion = a.createFromMessage(in.transcription);"
+            "out.transaktionen = a.createFromMessage(in.transcription);"
           ]
         }
       },
@@ -230,11 +229,14 @@
     }, {
       "id" : "f20",
       "type" : "RequestStart",
-      "name" : "start4",
+      "name" : [
+        "Test Voice ",
+        "to Table"
+      ],
       "config" : {
         "signature" : "start4",
         "request" : {
-          "name" : "Voice 2 Form Demo"
+          "name" : "Voice 2 Table Demo"
         }
       },
       "visual" : {
@@ -246,17 +248,18 @@
     }, {
       "id" : "f21",
       "type" : "DialogCall",
+      "name" : "Voice 2 table",
       "config" : {
         "dialog" : "financial.tracker.part3.Voice2Form:start()",
         "output" : {
           "map" : {
             "out" : "in",
-            "out.transaktion" : "result.transaktion"
+            "out.transaktionen" : "result.transaktion"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 272, "y" : 408 }
+        "at" : { "x" : 240, "y" : 408 }
       },
       "connect" : [
         { "id" : "f24", "to" : "f23" }
@@ -265,7 +268,7 @@
       "id" : "f23",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 464, "y" : 408 },
+        "at" : { "x" : 352, "y" : 408 },
         "labelOffset" : { "x" : 13, "y" : 33 }
       }
     } ]

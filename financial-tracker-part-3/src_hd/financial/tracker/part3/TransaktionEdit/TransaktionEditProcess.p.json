@@ -17,16 +17,15 @@
             { "name" : "transaktion", "type" : "financial.tracker.part3.Transaktion", "desc" : "" }
           ],
           "map" : {
-            "out.transcription" : "param.transcription",
-            "out.transaktion" : "param.transaktion"
+            "out.transcription" : "param.transcription"
           }
         },
         "result" : {
           "params" : [
-            { "name" : "transaktion", "type" : "financial.tracker.part3.Transaktion", "desc" : "" }
+            { "name" : "transaktion", "type" : "List<financial.tracker.part3.Transaktion>", "desc" : "" }
           ],
           "map" : {
-            "result.transaktion" : "in.transaktion"
+            "result.transaktion" : "in.transaktionen"
           }
         },
         "guid" : "199FC3DB806C42B0"

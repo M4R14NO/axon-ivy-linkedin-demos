@@ -19,24 +19,40 @@
         "config" : {
           "id" : "voice2textId",
           "components" : [ {
-            "cid" : "button10",
-            "type" : "Button",
+            "cid" : "layout31",
+            "type" : "Layout",
             "config" : {
-              "id" : "voice2text",
-              "name" : "transcribe voice",
-              "action" : "#{logic.voice2text}",
-              "icon" : "si si-graphic-tablet-drawing-pen"
+              "components" : [ {
+                "cid" : "button10",
+                "type" : "Button",
+                "config" : {
+                  "id" : "voice2text",
+                  "name" : "Speech to Text",
+                  "action" : "#{logic.voice2text}",
+                  "icon" : "si si-graphic-tablet-drawing-pen"
+                }
+              }, {
+                "cid" : "button30",
+                "type" : "Button",
+                "config" : {
+                  "name" : "Text to Table",
+                  "action" : "#{logic.text2table}",
+                  "icon" : "si si-button-refresh-arrows"
+                }
+              } ]
             }
           }, {
             "cid" : "textarea11",
             "type" : "Textarea",
             "config" : {
-              "label" : "Textarea",
+              "label" : "(ASR) Transcription",
               "value" : "#{data.asrAudio.asrResult}",
               "rows" : "5"
             }
           } ],
-          "legend" : "Voice to Text"
+          "legend" : "Show or Adapt User Message",
+          "collapsible" : true,
+          "collapsed" : true
         }
       }, {
         "cid" : "fieldset7",
@@ -48,42 +64,83 @@
             "type" : "Button",
             "config" : {
               "id" : "llmButton",
-              "name" : "Transcript to Transaction Object",
-              "action" : "#{logic.text2transaktion}",
-              "icon" : "si si-cog-double-2"
+              "name" : "Voice to Table",
+              "action" : "#{logic.voice2table}",
+              "icon" : "si si-list-bullets"
             }
           }, {
-            "cid" : "layout16",
-            "type" : "Layout",
+            "cid" : "datatable18",
+            "type" : "DataTable",
             "config" : {
               "components" : [ {
-                "cid" : "input15",
-                "type" : "Input",
+                "cid" : "datatablecolumn19",
+                "type" : "DataTableColumn",
                 "config" : {
-                  "label" : "Typ",
-                  "value" : "#{data.transaktion.typ}"
+                  "header" : "Amount",
+                  "value" : "amount",
+                  "sortable" : true,
+                  "filterable" : true
                 }
               }, {
-                "cid" : "input12",
-                "type" : "Input",
+                "cid" : "datatablecolumn20",
+                "type" : "DataTableColumn",
                 "config" : {
-                  "label" : "Amount",
-                  "value" : "#{data.transaktion.amount}",
-                  "type" : "NUMBER"
+                  "header" : "Description",
+                  "value" : "description",
+                  "sortable" : true,
+                  "filterable" : true
                 }
-              } ]
-            }
-          }, {
-            "cid" : "input13",
-            "type" : "Input",
-            "config" : {
-              "label" : "Description",
-              "value" : "#{data.transaktion.description}"
+              }, {
+                "cid" : "datatablecolumn22",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Transaction Type",
+                  "value" : "transactionType",
+                  "sortable" : true,
+                  "filterable" : true
+                }
+              }, {
+                "cid" : "datatablecolumn24",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Actions",
+                  "components" : [ {
+                    "cid" : "button25",
+                    "type" : "Button",
+                    "config" : {
+                      "action" : "editRow",
+                      "type" : "EDIT",
+                      "icon" : "pi pi-pencil"
+                    }
+                  }, {
+                    "cid" : "button26",
+                    "type" : "Button",
+                    "config" : {
+                      "action" : "deleteRow",
+                      "variant" : "DANGER",
+                      "type" : "DELETE",
+                      "icon" : "pi pi-trash",
+                      "confirmDialog" : true,
+                      "confirmHeader" : "Delete Confirmation",
+                      "confirmMessage" : "Are you sure you want to delete row: #{row}?",
+                      "confirmOkValue" : "Yes",
+                      "confirmCancelValue" : "No"
+                    }
+                  } ],
+                  "asActionColumn" : true
+                }
+              } ],
+              "value" : "#{data.transaktionen}",
+              "maxRows" : "10",
+              "isEditable" : true,
+              "editDialogId" : "dialog23",
+              "addButton" : true
             }
           } ],
-          "legend" : "Text to Transaktion"
+          "legend" : "Voice to Table"
         }
-      } ]
+      } ],
+      "gridVariant" : "GRID1"
     }
   }, {
     "cid" : "layout2",
@@ -111,6 +168,36 @@
       } ],
       "type" : "FLEX",
       "justifyContent" : "END"
+    }
+  }, {
+    "cid" : "dialog23",
+    "type" : "Dialog",
+    "config" : {
+      "components" : [ {
+        "cid" : "input27",
+        "type" : "Input",
+        "config" : {
+          "label" : "Amount",
+          "value" : "#{currentRow.amount}",
+          "type" : "NUMBER"
+        }
+      }, {
+        "cid" : "input28",
+        "type" : "Input",
+        "config" : {
+          "label" : "Description",
+          "value" : "#{currentRow.description}"
+        }
+      }, {
+        "cid" : "input29",
+        "type" : "Input",
+        "config" : {
+          "label" : "Transaction Type",
+          "value" : "#{currentRow.transactionType}"
+        }
+      } ],
+      "header" : "Edit Transaction",
+      "linkedComponent" : "datatable18"
     }
   } ]
 }

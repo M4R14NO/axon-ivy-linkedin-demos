@@ -2,26 +2,40 @@
   "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
   "id" : "8700e2af-1190-478d-ba39-9a6f14c8911c",
   "components" : [ {
-    "cid" : "input3",
-    "type" : "Input",
+    "cid" : "datatable7",
+    "type" : "DataTable",
     "config" : {
-      "label" : "Typ",
-      "value" : "#{data.transaktion.typ}"
-    }
-  }, {
-    "cid" : "input1",
-    "type" : "Input",
-    "config" : {
-      "label" : "Amount",
-      "value" : "#{data.transaktion.amount}",
-      "type" : "NUMBER"
-    }
-  }, {
-    "cid" : "input2",
-    "type" : "Input",
-    "config" : {
-      "label" : "Description",
-      "value" : "#{data.transaktion.description}"
+      "components" : [ {
+        "cid" : "datatablecolumn8",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "amount",
+          "value" : "amount"
+        }
+      }, {
+        "cid" : "datatablecolumn9",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "description",
+          "value" : "description"
+        }
+      }, {
+        "cid" : "datatablecolumn10",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "id",
+          "value" : "id"
+        }
+      }, {
+        "cid" : "datatablecolumn11",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "transactionType",
+          "value" : "transactionType"
+        }
+      } ],
+      "value" : "#{data.transaktionen}",
+      "maxRows" : "10"
     }
   }, {
     "cid" : "layout4",
