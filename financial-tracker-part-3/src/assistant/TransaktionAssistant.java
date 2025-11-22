@@ -1,5 +1,6 @@
 package assistant;
 
+import ch.ivyteam.ivy.scripting.objects.List;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
@@ -20,7 +21,7 @@ public class TransaktionAssistant {
    * @param message The user-provided text describing the transaction.
    * @return A populated Transaction object parsed from the model's JSON output.
    */
-  public Transaktion createFromMessage(String message) {
+  public List<Transaktion> createFromMessage(String message) {
 
     // Build a proxy implementation of ITransaktionAssistant using LangChain4j.
     // This proxy will call the LLM, feed the annotated prompt, get back JSON, and parse into Transaction.
@@ -30,9 +31,10 @@ public class TransaktionAssistant {
         .build();
 
     // Delegate to the generated stub interface method
-    Transaktion newTransaktion = assistant.createTransaktion(message);
+    TransaktionResponse response = assistant.createTransaktionen(message);
 
-    return newTransaktion;
+    // Extract the list from the wrapper
+    return response.getTransactions();
   }
 
   /**
@@ -45,18 +47,36 @@ public class TransaktionAssistant {
   public interface ITransaktionAssistant {
     
     @SystemMessage("""
-        You are a helpful financial assistant.
-        Parse the following message into a JSON transaction record.
-        Return strictly JSON with no markdown or extra text.
+        You are a helpful financial assistant specialized in parsing transaction data from voice transcriptions obtained by an automatic speech recognition service.
+        
+        Your task: Extract transaction information from user messages and return structured JSON.
+        Rules:
+        - Return ONLY valid JSON, no markdown formatting or explanatory text
+        - Handle single or multiple transactions per message.
+        - If there are multiple transactions in a user message, it is possible that they have a different transaction type.
+        - If amounts are ambiguous, use your best judgement or set amount to null
+        - Use positive numbers; transactionType field indicates direction
 
-        Output JSON format:
-        {
-          "amount": number,
-          "typ": "income" or "expense",
-          "description": string
-        }
+        Output format:
+	    {
+	      "transactions": [
+	        {
+	          "amount": number or null,
+	          "transactionType": "income" | "expense",
+	          "description": string
+	        }
+	      ]
+	    }
+    	
+    	
+    	Examples:
+			Input: "Spent 50€ on groceries and got 20 euro cashback"
+			Output: {"transactions": [{"amount": 50, "transactionType": "expense", "description": "groceries"}, {"amount": 20, "transactionType": "income", "description": "cashback"}]}
+			
+			Input: "Paid for coffee"
+			Output: {"transactions": [{"amount": null, "transactionType": "expense", "description": "coffee"}]}
     """)
     @UserMessage("{{message}}")
-    public Transaktion createTransaktion(@V("message") String message);
+    TransaktionResponse createTransaktionen(@V("message") String message);
   }
 }
