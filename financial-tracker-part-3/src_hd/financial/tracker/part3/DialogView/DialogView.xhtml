@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
+
+<cc:interface componentType="IvyComponent">
+  <cc:attribute name="view" required="true" shortDescription="View name without .xhtml" displayName="Dialog View" />
+  <cc:attribute name="action" default="open" shortDescription="open or close" displayName="Action" />
+  <cc:attribute name="data" type="java.lang.Object" shortDescription="Object to pass to dialog" displayName="Dialog Data" />
+  <cc:attribute name="dataKeyParam" default="dialogDataKey" shortDescription="Request param name for data key" displayName="Data Key Param" />
+  <cc:attribute name="value" default="Open Dialog" shortDescription="Button label" displayName="Button Label" />
+  <cc:attribute name="icon" default="pi pi-external-link" shortDescription="Button icon" displayName="Button Icon" />
+  <cc:attribute name="styleClass" shortDescription="CSS classes for the button" displayName="Button Style Class" />
+  <cc:attribute name="process" default="@this" shortDescription="Process targets" displayName="Process" />
+  <cc:attribute name="update" shortDescription="Update targets" displayName="Update" />
+
+  <cc:attribute name="width" type="java.lang.Integer" shortDescription="Dialog content width" displayName="Width" />
+  <cc:attribute name="height" type="java.lang.Integer" shortDescription="Dialog content height" displayName="Height" />
+  <cc:attribute name="modal" type="java.lang.Boolean" default="true" shortDescription="Modal dialog" displayName="Modal" />
+  <cc:attribute name="resizable" type="java.lang.Boolean" default="false" shortDescription="Resizable dialog" displayName="Resizable" />
+  <cc:attribute name="draggable" type="java.lang.Boolean" default="true" shortDescription="Draggable dialog" displayName="Draggable" />
+
+  <cc:attribute name="options" type="java.util.Map" shortDescription="Advanced dialog options" displayName="Options" />
+  <cc:attribute name="params" type="java.util.Map" shortDescription="Dialog parameters" displayName="Params" />
+  <cc:attribute name="returnListener" method-signature="void listener(org.primefaces.event.SelectEvent)" shortDescription="Listener for dialog return" displayName="Dialog Return Listener" />
+</cc:interface>
+
+<cc:implementation>
+  <p:commandButton value="#{cc.attrs.value}"
+    icon="#{cc.attrs.icon}"
+    styleClass="#{cc.attrs.styleClass}"
+    process="#{cc.attrs.process}"
+    update="#{cc.attrs.update}"
+    actionListener="#{dialogViewBean.perform(cc.attrs.action, cc.attrs.view, cc.attrs.width, cc.attrs.height, cc.attrs.modal, cc.attrs.resizable, cc.attrs.draggable, cc.attrs.options, cc.attrs.params, cc.attrs.data, cc.attrs.dataKeyParam)}">
+    <p:ajax event="dialogReturn"
+      listener="#{cc.attrs.returnListener}"
+      update="#{cc.attrs.update}"
+      rendered="#{not empty cc.attrs.returnListener}" />
+  </p:commandButton>
+</cc:implementation>
+
+</html>
