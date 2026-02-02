@@ -3,10 +3,10 @@ RestClients:
   #Whisper ASR Webservice is a general-purpose speech recognition webservice.
   whisper-asr-webservice (Whisper Asr Webservice):
     UUID: ac875689-9121-441e-8047-09274cddd2b4
-    Url: http://localhost:9000/
+    Url: http://192.168.178.63:9000/
     Features:
     - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
     - org.glassfish.jersey.media.multipart.MultiPartFeature
     OpenAPI:
-      SpecUrl: http://localhost:9000/openapi.json
+      SpecUrl: http://192.168.178.63:9000/openapi.json
       Namespace: localhost.client
