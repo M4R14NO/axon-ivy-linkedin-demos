@@ -204,7 +204,7 @@
           "code" : [
             "import agent.TransactionAgent;",
             "TransactionAgent agent = new TransactionAgent();",
-            "in.agentResponse = agent.runTool(in.message);"
+            "in.agentResponse = agent.runTool(in.message, true);"
           ]
         }
       },

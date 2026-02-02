@@ -11,10 +11,10 @@ import service.OpenAiService;
 
 public class TransactionAgent {
 
-  public TransactionAgentResponse runTool(String message) {
+  public TransactionAgentResponse runTool(String message, Boolean useOllama) {
     ITransactionAgent agent = AiServices
         .builder(ITransactionAgent.class)
-        .chatModel(OpenAiService.getJsonChatModel())
+        .chatModel(OpenAiService.getJsonChatModel(useOllama))
         .tools(new TransactionTools())
         .build();
 
