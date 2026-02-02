@@ -182,7 +182,8 @@
         "dialog" : "financial.tracker.part3.TransaktionEdit:start(String,financial.tracker.part3.Transaktion)",
         "call" : {
           "map" : {
-            "param.transcription" : "in.transcription"
+            "param.transcription" : "in.transcription",
+            "param.transaktion" : "in.transaktionen.get(0)"
           }
         },
         "output" : {
