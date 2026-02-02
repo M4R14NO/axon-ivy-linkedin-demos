@@ -1,0 +1,11 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "RecordAndTranscribeData",
+  "namespace" : "financial.tracker.part3.RecordAndTranscribe",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "asrResult",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

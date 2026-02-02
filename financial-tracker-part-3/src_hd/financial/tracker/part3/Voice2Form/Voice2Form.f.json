@@ -1,0 +1,203 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "779011c8-2a6c-4090-8d4b-4253a4cc523f",
+  "components" : [ {
+    "cid" : "composite5",
+    "type" : "Composite",
+    "config" : {
+      "id" : "audiorec",
+      "name" : "financial.tracker.part3.AudioRecording",
+      "startMethod" : "start"
+    }
+  }, {
+    "cid" : "layout17",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "fieldset9",
+        "type" : "Fieldset",
+        "config" : {
+          "id" : "voice2textId",
+          "components" : [ {
+            "cid" : "layout31",
+            "type" : "Layout",
+            "config" : {
+              "components" : [ {
+                "cid" : "button10",
+                "type" : "Button",
+                "config" : {
+                  "id" : "voice2text",
+                  "name" : "Speech to Text",
+                  "action" : "#{logic.voice2text}",
+                  "icon" : "si si-graphic-tablet-drawing-pen"
+                }
+              }, {
+                "cid" : "button30",
+                "type" : "Button",
+                "config" : {
+                  "name" : "Text to Table",
+                  "action" : "#{logic.text2table}",
+                  "icon" : "si si-button-refresh-arrows"
+                }
+              } ]
+            }
+          }, {
+            "cid" : "textarea11",
+            "type" : "Textarea",
+            "config" : {
+              "label" : "(ASR) Transcription",
+              "value" : "#{data.asrAudio.asrResult}",
+              "rows" : "5"
+            }
+          } ],
+          "legend" : "Show or Adapt User Message",
+          "collapsible" : true,
+          "collapsed" : true
+        }
+      }, {
+        "cid" : "fieldset7",
+        "type" : "Fieldset",
+        "config" : {
+          "id" : "text2Transaktion",
+          "components" : [ {
+            "cid" : "button6",
+            "type" : "Button",
+            "config" : {
+              "id" : "llmButton",
+              "name" : "Voice to Table",
+              "action" : "#{logic.voice2table}",
+              "icon" : "si si-list-bullets"
+            }
+          }, {
+            "cid" : "datatable18",
+            "type" : "DataTable",
+            "config" : {
+              "components" : [ {
+                "cid" : "datatablecolumn19",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Amount",
+                  "value" : "amount",
+                  "sortable" : true,
+                  "filterable" : true
+                }
+              }, {
+                "cid" : "datatablecolumn20",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Description",
+                  "value" : "description",
+                  "sortable" : true,
+                  "filterable" : true
+                }
+              }, {
+                "cid" : "datatablecolumn22",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Transaction Type",
+                  "value" : "transactionType",
+                  "sortable" : true,
+                  "filterable" : true
+                }
+              }, {
+                "cid" : "datatablecolumn24",
+                "type" : "DataTableColumn",
+                "config" : {
+                  "header" : "Actions",
+                  "components" : [ {
+                    "cid" : "button25",
+                    "type" : "Button",
+                    "config" : {
+                      "action" : "editRow",
+                      "type" : "EDIT",
+                      "icon" : "pi pi-pencil"
+                    }
+                  }, {
+                    "cid" : "button26",
+                    "type" : "Button",
+                    "config" : {
+                      "action" : "deleteRow",
+                      "variant" : "DANGER",
+                      "type" : "DELETE",
+                      "icon" : "pi pi-trash",
+                      "confirmDialog" : true,
+                      "confirmHeader" : "Delete Confirmation",
+                      "confirmMessage" : "Are you sure you want to delete row: #{row}?",
+                      "confirmOkValue" : "Yes",
+                      "confirmCancelValue" : "No"
+                    }
+                  } ],
+                  "asActionColumn" : true
+                }
+              } ],
+              "value" : "#{data.transaktionen}",
+              "maxRows" : "10",
+              "isEditable" : true,
+              "editDialogId" : "dialog23",
+              "addButton" : true
+            }
+          } ],
+          "legend" : "Voice to Table"
+        }
+      } ],
+      "gridVariant" : "GRID1"
+    }
+  }, {
+    "cid" : "layout2",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "button3",
+        "type" : "Button",
+        "config" : {
+          "name" : "Cancel",
+          "action" : "#{ivyWorkflowView.cancel()}",
+          "variant" : "SECONDARY",
+          "style" : "FLAT",
+          "processOnlySelf" : true
+        }
+      }, {
+        "cid" : "button4",
+        "type" : "Button",
+        "config" : {
+          "name" : "Proceed",
+          "action" : "#{logic.close}",
+          "type" : "SUBMIT",
+          "icon" : "si si-check-1"
+        }
+      } ],
+      "type" : "FLEX",
+      "justifyContent" : "END"
+    }
+  }, {
+    "cid" : "dialog23",
+    "type" : "Dialog",
+    "config" : {
+      "components" : [ {
+        "cid" : "input27",
+        "type" : "Input",
+        "config" : {
+          "label" : "Amount",
+          "value" : "#{currentRow.amount}",
+          "type" : "NUMBER"
+        }
+      }, {
+        "cid" : "input28",
+        "type" : "Input",
+        "config" : {
+          "label" : "Description",
+          "value" : "#{currentRow.description}"
+        }
+      }, {
+        "cid" : "input29",
+        "type" : "Input",
+        "config" : {
+          "label" : "Transaction Type",
+          "value" : "#{currentRow.transactionType}"
+        }
+      } ],
+      "header" : "Edit Transaction",
+      "linkedComponent" : "datatable18"
+    }
+  } ]
+}

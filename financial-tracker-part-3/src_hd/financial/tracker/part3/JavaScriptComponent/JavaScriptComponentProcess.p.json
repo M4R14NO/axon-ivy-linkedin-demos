@@ -1,35 +1,17 @@
 {
   "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
-  "id" : "199FC3DB7FC7A4D8",
+  "id" : "199FCF6089914E6E",
   "kind" : "HTML_DIALOG",
   "config" : {
-    "data" : "financial.tracker.part3.TransaktionEdit.TransaktionEditData"
+    "data" : "financial.tracker.part3.JavaScriptComponent.JavaScriptComponentData"
   },
   "elements" : [ {
       "id" : "f0",
       "type" : "HtmlDialogStart",
-      "name" : "start(String,Transaktion)",
+      "name" : "start()",
       "config" : {
         "signature" : "start",
-        "input" : {
-          "params" : [
-            { "name" : "transcription", "type" : "String", "desc" : "" },
-            { "name" : "transaktion", "type" : "financial.tracker.part3.Transaktion", "desc" : "" }
-          ],
-          "map" : {
-            "out.transcription" : "param.transcription"
-          },
-          "code" : "out.transaktionen.add(param.transaktion);"
-        },
-        "result" : {
-          "params" : [
-            { "name" : "transaktion", "type" : "List<financial.tracker.part3.Transaktion>", "desc" : "" }
-          ],
-          "map" : {
-            "result.transaktion" : "in.transaktionen"
-          }
-        },
-        "guid" : "199FC3DB806C42B0"
+        "guid" : "199FCF6089AEA9FA"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
@@ -49,7 +31,7 @@
       "type" : "HtmlDialogEventStart",
       "name" : "close",
       "config" : {
-        "guid" : "199FC3DB80CE95B2"
+        "guid" : "199FCF6089B7C822"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }

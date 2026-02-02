@@ -21,10 +21,10 @@ public class DecisionMaker {
    * @param message the user's message describing their intent or requirement
    * @return the most suitable {@link Option} selected by the AI
    */
-  public Option makeDecision(List<Option> options, String message) {
+  public Option makeDecision(List<Option> options, String message, Boolean useOllama) {
     IDecisionMaker assistant = AiServices
         .builder(IDecisionMaker.class)
-        .chatModel(OpenAiService.getJsonChatModel())
+        .chatModel(OpenAiService.getJsonChatModel(useOllama))
         .build();
 
     return assistant.makeDecision(options, message);

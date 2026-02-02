@@ -54,7 +54,7 @@
       "type" : "DialogCall",
       "name" : "record audio file",
       "config" : {
-        "dialog" : "financial.tracker.part3.AudioInput:start()",
+        "dialog" : "financial.tracker.part3.AudioRecordingForm:start()",
         "output" : {
           "code" : "ivy.log.info(result);"
         }
@@ -183,13 +183,13 @@
         "call" : {
           "map" : {
             "param.transcription" : "in.transcription",
-            "param.transaktion" : "in.transaktion"
+            "param.transaktion" : "in.transaktionen.get(0)"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.transaktion" : "result.transaktion"
+            "out.transaktionen" : "result.transaktion"
           }
         }
       },
@@ -216,7 +216,7 @@
             "import assistant.TransaktionAssistant;",
             "",
             "TransaktionAssistant a = new TransaktionAssistant();",
-            "out.transaktion = a.createFromMessage(in.transcription);"
+            "out.transaktionen = a.createFromMessage(in.transcription);"
           ]
         }
       },
@@ -227,5 +227,50 @@
       "connect" : [
         { "id" : "f19", "to" : "f14", "color" : "default" }
       ]
+    }, {
+      "id" : "f20",
+      "type" : "RequestStart",
+      "name" : [
+        "Test Voice ",
+        "to Table"
+      ],
+      "config" : {
+        "signature" : "start4",
+        "request" : {
+          "name" : "Voice 2 Table Demo"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 408 }
+      },
+      "connect" : [
+        { "id" : "f22", "to" : "f21" }
+      ]
+    }, {
+      "id" : "f21",
+      "type" : "DialogCall",
+      "name" : "Voice 2 table",
+      "config" : {
+        "dialog" : "financial.tracker.part3.Voice2Form:start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.transaktionen" : "result.transaktion"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 240, "y" : 408 }
+      },
+      "connect" : [
+        { "id" : "f24", "to" : "f23" }
+      ]
+    }, {
+      "id" : "f23",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 408 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
     } ]
 }

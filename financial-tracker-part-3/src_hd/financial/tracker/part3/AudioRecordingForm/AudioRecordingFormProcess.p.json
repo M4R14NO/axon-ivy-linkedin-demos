@@ -1,0 +1,227 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "199FCF0CC1D874DC",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part3.AudioRecordingForm.AudioRecordingFormData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "guid" : "199FCF0CC1F8BD8D"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "199FCF0CC228C165"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 352 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 200, "y" : 352 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "transcribe",
+      "config" : {
+        "guid" : "19AA7104126BCD2F"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 168 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f9" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 528, "y" : 168 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "Script",
+      "name" : "get audioBytes from audioBean",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.AudioBean;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "// Hole die audioBean aus dem JSF Context",
+            "FacesContext context = FacesContext.getCurrentInstance();",
+            "AudioBean audioBean =  context.getApplication()",
+            "    .getELResolver()",
+            "    .getValue(context.getELContext(), null, \"audioBean\") as AudioBean;",
+            "",
+            "if (audioBean != null && audioBean.getAudioBytes() != null) {",
+            "    // Kopiere die Daten in die Data Class",
+            "    in.audioBytes = audioBean.getAudioBytes();",
+            "    in.audioReady = audioBean.isAudioReady();",
+            "    ",
+            "    ivy.log.info(\"Audio bytes retrieved: \" + in.audioBytes.size()+ \" bytes\");",
+            "    ",
+            "    // Hier kannst du jetzt den Whisper REST Call machen",
+            "    // z.B. mit einem REST Client Activity im nächsten Step",
+            "    ",
+            "} else {",
+            "    ivy.log.warn(\"No audio data available in audioBean\");",
+            "    in.asrResult = \"Fehler: Keine Audio-Daten verfügbar\";",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 168 }
+      },
+      "connect" : [
+        { "id" : "f13", "to" : "f11" }
+      ]
+    }, {
+      "id" : "f11",
+      "type" : "Script",
+      "name" : "Call Java Whisper client",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.WhisperClient;",
+            "in.asrResult = WhisperClient.transcribe(in.audioBytes);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 392, "y" : 168 }
+      },
+      "connect" : [
+        { "id" : "f12", "to" : "f7", "color" : "default" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "RestClientCall",
+      "name" : "ASR with german input stream",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "ac875689-9121-441e-8047-09274cddd2b4",
+          "path" : "/asr",
+          "queryParams" : {
+            "encode" : "",
+            "task" : "",
+            "language" : "\"de\"",
+            "initial_prompt" : "",
+            "output" : ""
+          },
+          "headers" : {
+            "Accept" : "multipart/form-data"
+          }
+        },
+        "body" : {
+          "type" : "FORM",
+          "mediaType" : "multipart/form-data",
+          "form" : {
+            "audio_file" : [ "in.stream" ]
+          },
+          "entity" : {
+            "type" : "localhost.client.BodyAsrAsrPost"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.asrResult" : "response.readEntity(String.class) as String"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 392, "y" : 264 },
+        "size" : { "width" : 160, "height" : 62 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f15" }
+      ]
+    }, {
+      "id" : "f17",
+      "type" : "HtmlDialogEventStart",
+      "name" : "restAsrDe",
+      "config" : {
+        "guid" : "19AA7A25248C3E1E"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f14", "to" : "f18" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 528, "y" : 264 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "get audioBytes from audioBean",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.AudioBean;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "// Hole die audioBean aus dem JSF Context",
+            "FacesContext context = FacesContext.getCurrentInstance();",
+            "AudioBean audioBean =  context.getApplication()",
+            "    .getELResolver()",
+            "    .getValue(context.getELContext(), null, \"audioBean\") as AudioBean;",
+            "",
+            "if (audioBean != null && audioBean.getAudioBytes() != null) {",
+            "    // Kopiere die Daten in die Data Class",
+            "    in.audioBytes = audioBean.getAudioBytes();",
+            "    in.audioReady = audioBean.isAudioReady();",
+            "    out.stream = new java.io.ByteArrayInputStream(in.audioBytes);",
+            "    ivy.log.info(\"Audio bytes retrieved: \" + in.audioBytes.size()+ \" bytes\");    ",
+            "} else {",
+            "    ivy.log.warn(\"No audio data available in audioBean\");",
+            "    in.asrResult = \"Fehler: Keine Audio-Daten verfügbar\";",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 264 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f10", "color" : "default" }
+      ]
+    } ]
+}

@@ -1,0 +1,317 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "19AA805E2EDF897F",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part3.Voice2Form.Voice2FormData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "signature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "transaktion", "type" : "List<financial.tracker.part3.Transaktion>", "desc" : "" }
+          ],
+          "map" : {
+            "result.transaktion" : "in.transaktionen"
+          }
+        },
+        "guid" : "19AA805E2EFA340B"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 56 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 672, "y" : 56 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "19AA805E2F1A39B8"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 328 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 672, "y" : 328 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f17",
+      "type" : "HtmlDialogEventStart",
+      "name" : "voice2text",
+      "config" : {
+        "guid" : "19AA812C0885C0E2",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.end2end" : "false"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 192 }
+      },
+      "connect" : [
+        { "id" : "f14", "to" : "f18", "via" : [ { "x" : 200, "y" : 192 } ] }
+      ]
+    }, {
+      "id" : "f18",
+      "type" : "Script",
+      "name" : "get audio stream",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import beans.AudioBean;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "// Hole die audioBean aus dem JSF Context",
+            "FacesContext context = FacesContext.getCurrentInstance();",
+            "AudioBean audioBean =  context.getApplication()",
+            "    .getELResolver()",
+            "    .getValue(context.getELContext(), null, \"audioBean\") as AudioBean;",
+            "",
+            "if (audioBean != null && audioBean.getAudioBytes() != null) {",
+            "    // Kopiere die Daten in die Data Class",
+            "    in.asrAudio.audioBytes = audioBean.getAudioBytes();",
+            "    in.asrAudio.audioReady = audioBean.isAudioReady();",
+            "    out.asrAudio.stream = new java.io.ByteArrayInputStream(in.asrAudio.audioBytes);",
+            "    ivy.log.info(\"Audio bytes retrieved: \" + in.asrAudio.audioBytes.size()+ \" bytes\");",
+            "    ",
+            "    // Hier kannst du jetzt den Whisper REST Call machen",
+            "    // z.B. mit einem REST Client Activity im nächsten Step",
+            "    ",
+            "} else {",
+            "    ivy.log.warn(\"No audio data available in audioBean\");",
+            "    in.asrAudio.asrResult = \"Fehler: Keine Audio-Daten verfügbar\";",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 200, "y" : 120 }
+      },
+      "connect" : [
+        { "id" : "f19", "to" : "f10", "color" : "default" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "RestClientCall",
+      "name" : "ASR with german input stream",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "ac875689-9121-441e-8047-09274cddd2b4",
+          "path" : "/asr",
+          "queryParams" : {
+            "encode" : "",
+            "task" : "",
+            "language" : "\"de\"",
+            "initial_prompt" : "",
+            "output" : ""
+          },
+          "headers" : {
+            "Accept" : "multipart/form-data"
+          }
+        },
+        "body" : {
+          "type" : "FORM",
+          "mediaType" : "multipart/form-data",
+          "form" : {
+            "audio_file" : [ "in.asrAudio.stream" ]
+          },
+          "entity" : {
+            "type" : "localhost.client.BodyAsrAsrPost"
+          }
+        },
+        "response" : {
+          "entity" : {
+            "map" : {
+              "out.asrAudio.asrResult" : "response.readEntity(String.class) as String"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 336, "y" : 119 },
+        "size" : { "width" : 120, "height" : 63 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f20" }
+      ]
+    }, {
+      "id" : "f15",
+      "type" : "HtmlDialogEnd",
+      "name" : [
+        "transcribed voice",
+        "to text"
+      ],
+      "visual" : {
+        "at" : { "x" : 672, "y" : 120 },
+        "labelOffset" : { "x" : 83, "y" : 3 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "text2table",
+      "config" : {
+        "guid" : "19AA81B8D1ADDD11",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.end2end" : "false"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 256 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f9" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "name" : [
+        "mapped voice ",
+        "to table"
+      ],
+      "visual" : {
+        "at" : { "x" : 672, "y" : 192 },
+        "labelOffset" : { "x" : 75, "y" : 3 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "Script",
+      "name" : [
+        "LLM parses text to json ",
+        "to List<Transaktion>"
+      ],
+      "config" : {
+        "output" : {
+          "code" : [
+            "import assistant.TransaktionAssistant;",
+            "",
+            "TransaktionAssistant a = new TransaktionAssistant();",
+            "out.transaktionen = a.createFromMessage(in.asrAudio.asrResult);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 439, "y" : 256 },
+        "size" : { "width" : 191, "height" : 64 }
+      },
+      "connect" : [
+        { "id" : "f11", "to" : "f22", "color" : "default" }
+      ]
+    }, {
+      "id" : "f12",
+      "type" : "HtmlDialogEventStart",
+      "name" : "voice2table",
+      "config" : {
+        "guid" : "19AAB95AB326BFFD",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.end2end" : "true"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 120 }
+      },
+      "connect" : [
+        { "id" : "f13", "to" : "f18" }
+      ]
+    }, {
+      "id" : "f20",
+      "type" : "Alternative",
+      "name" : [
+        "ONLY voice",
+        "to text?"
+      ],
+      "config" : {
+        "conditions" : {
+          "f21" : "! in.end2end"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 440, "y" : 120 },
+        "size" : { "width" : 28, "height" : 28 },
+        "labelOffset" : { "x" : 18, "y" : -30 }
+      },
+      "connect" : [
+        { "id" : "f21", "to" : "f15", "label" : {
+            "name" : "yes",
+            "offset" : { "x" : -39, "y" : -10 }
+          }, "color" : "default" },
+        { "id" : "f24", "to" : "f9", "label" : {
+            "name" : [
+              "no,",
+              "also ",
+              "to table"
+            ],
+            "segment" : 0.42,
+            "offset" : { "x" : 25, "y" : -3 }
+          } }
+      ]
+    }, {
+      "id" : "f22",
+      "type" : "Alternative",
+      "name" : [
+        "ONLY text ",
+        "to table?"
+      ],
+      "config" : {
+        "conditions" : {
+          "f23" : "in.end2end"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 584, "y" : 256 },
+        "size" : { "width" : 28, "height" : 28 },
+        "labelOffset" : { "x" : 18, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f23", "to" : "f7", "via" : [ { "x" : 584, "y" : 192 } ], "label" : {
+            "name" : "no",
+            "segment" : 1.12,
+            "offset" : { "x" : 33, "y" : -10 }
+          }, "color" : "default" },
+        { "id" : "f26", "to" : "f25", "label" : {
+            "name" : "yes",
+            "segment" : 0.39,
+            "offset" : { "x" : 4, "y" : -10 }
+          } }
+      ]
+    }, {
+      "id" : "f25",
+      "type" : "HtmlDialogEnd",
+      "name" : [
+        "mapped text",
+        "to table"
+      ],
+      "visual" : {
+        "at" : { "x" : 672, "y" : 256 },
+        "labelOffset" : { "x" : 67, "y" : 3 }
+      }
+    } ]
+}

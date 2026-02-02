@@ -53,7 +53,7 @@
             "import assitant.DecisionMaker;",
             "",
             "DecisionMaker assistant = new DecisionMaker();",
-            "in.selectedOption = assistant.makeDecision(in.options, in.message);"
+            "in.selectedOption = assistant.makeDecision(in.options, in.message, true);"
           ]
         }
       },

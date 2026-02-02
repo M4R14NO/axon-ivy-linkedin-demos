@@ -34,7 +34,7 @@ public class TransactionTools {
   public TransactionAgentResponse createTransactionTool(String message) {
 
     // Use TransactionAssistant to create new Transaction object
-    Transaction newTransaction = assistant.createFromMessage(message);
+    Transaction newTransaction = assistant.createFromMessage(message, true);
 
     // Persist the new Transaction object to repo
     TransactionRepository.getInstance().create(newTransaction);
@@ -58,7 +58,7 @@ public class TransactionTools {
   public TransactionAgentResponse searchTransactions(String message) {
     // Use TransactionAssistant to create search criteria
     TransactionSearchCriteria searchCriteria =
-        assistant.createSearchCriteriaFromMessage(message);
+        assistant.createSearchCriteriaFromMessage(message, true);
 
     // Use search criteria to find transactions in the repo
     List<Transaction> matchedTransactions = 
@@ -121,7 +121,7 @@ public class TransactionTools {
    */
   @Tool("Use when need to retrieve information of a transaction.")
   public Transaction searchOneTransaction(String message) {
-    TransactionSearchCriteria searchCriteria = assistant.createSearchCriteriaFromMessage(message);
+    TransactionSearchCriteria searchCriteria = assistant.createSearchCriteriaFromMessage(message, true);
     return TransactionRepository.getInstance().findBySearchCriteria(searchCriteria).get(0);
   }
 }

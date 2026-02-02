@@ -1,0 +1,23 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "Voice2FormData",
+  "namespace" : "financial.tracker.part3.Voice2Form",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "transaktion",
+    "type" : "financial.tracker.part3.Transaktion",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "asrAudio",
+    "type" : "financial.tracker.part3.AudioRecordingForm.AsrAudio",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transaktionen",
+    "type" : "List<financial.tracker.part3.Transaktion>",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "end2end",
+    "type" : "Boolean",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

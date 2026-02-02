@@ -1,0 +1,58 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "199FCF2F2E5A6F77",
+  "config" : {
+    "data" : "financial.tracker.part3.AudioInputTestprocessData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start",
+      "config" : {
+        "signature" : "start",
+        "request" : {
+          "name" : "Audioaufnahme Test"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 512, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "DialogCall",
+      "name" : "Test Audio Recording",
+      "config" : {
+        "dialog" : "financial.tracker.part3.AudioRecordingForm:start()"
+      },
+      "visual" : {
+        "at" : { "x" : 240, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    }, {
+      "id" : "f5",
+      "type" : "ProcessAnnotation",
+      "name" : [
+        "Important: ",
+        "when you embed the audio recording ivy component, the UI element's id of the component needs to be set to \"audiorec\" s.t. it works in combination with the JavaScript file"
+      ],
+      "visual" : {
+        "at" : { "x" : 224, "y" : 160 },
+        "size" : { "width" : 256, "height" : 96 }
+      },
+      "connect" : [
+        { "id" : "f6", "to" : "f3" }
+      ]
+    } ]
+}
