@@ -1,5 +1,6 @@
 package assistant;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.scripting.objects.List;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.SystemMessage;
@@ -25,9 +26,11 @@ public class TransaktionAssistant {
 
     // Build a proxy implementation of ITransaktionAssistant using LangChain4j.
     // This proxy will call the LLM, feed the annotated prompt, get back JSON, and parse into Transaction.
-    ITransaktionAssistant assistant = AiServices
+	  Ivy.log().info("Get JSON ChatModel");
+	  Boolean useOllama = true;
+	  ITransaktionAssistant assistant = AiServices
         .builder(ITransaktionAssistant.class)
-        .chatModel(OpenAiService.getJsonChatModel())
+        .chatModel(OpenAiService.getJsonChatModel(useOllama))
         .build();
 
     // Delegate to the generated stub interface method

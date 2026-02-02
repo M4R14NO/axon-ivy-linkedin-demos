@@ -18,7 +18,8 @@
           ],
           "map" : {
             "out.transcription" : "param.transcription"
-          }
+          },
+          "code" : "out.transaktionen.add(param.transaktion);"
         },
         "result" : {
           "params" : [
