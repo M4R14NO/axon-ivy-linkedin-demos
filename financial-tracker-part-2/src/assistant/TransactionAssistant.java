@@ -23,13 +23,13 @@ public class TransactionAssistant {
    * @param message The user-provided text describing the transaction.
    * @return A populated Transaction object parsed from the model's JSON output.
    */
-  public Transaction createFromMessage(String message) {
+  public Transaction createFromMessage(String message, Boolean useOllama) {
 
     // Build a proxy implementation of ITransactionAssistant using LangChain4j.
     // This proxy will call the LLM, feed the annotated prompt, get back JSON, and parse into Transaction.
     ITransactionAssistant assistant = AiServices
         .builder(ITransactionAssistant.class)
-        .chatModel(OpenAiService.getJsonChatModel())
+        .chatModel(OpenAiService.getJsonChatModel(useOllama))
         .build();
 
     // Delegate to the generated stub interface method
@@ -45,13 +45,13 @@ public class TransactionAssistant {
    * @param message The user-provided text describing the search criteria.
    * @return A populated TransactionSearchCriteria object parsed from the model's JSON output.
    */
-  public TransactionSearchCriteria createSearchCriteriaFromMessage(String message) {
+  public TransactionSearchCriteria createSearchCriteriaFromMessage(String message, Boolean useOllama) {
 
     // Build a proxy implementation of ITransactionAssistant using LangChain4j.
     // This proxy will call the LLM, feed the annotated prompt, get back JSON, and parse into TransactionSearchCriteria.
     ITransactionAssistant assistant = AiServices
         .builder(ITransactionAssistant.class)
-        .chatModel(OpenAiService.getJsonChatModel())
+        .chatModel(OpenAiService.getJsonChatModel(useOllama))
         .build();
 
     // Delegate to the generated stub interface method
