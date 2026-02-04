@@ -118,7 +118,7 @@ public final class OpenAiService {
 	    return modelNames;
 	    
 	  }  catch (java.net.ConnectException e) {
-		  Ivy.log().warn("Ollama server not reachable at {0}. Is the server running?", listEndpoint, e);
+		  Ivy.log().warn("Ollama server not reachable at {0}. Is the server running? Type 'ipconfig getifaddr en0' in the terminal of your host machine to find out the IP address.", listEndpoint, e);
 		  return new java.util.ArrayList<>();
 		} catch (java.nio.channels.ClosedChannelException e) {
 		  Ivy.log().warn("Connection to Ollama server at {0} was closed unexpectedly", listEndpoint, e);
