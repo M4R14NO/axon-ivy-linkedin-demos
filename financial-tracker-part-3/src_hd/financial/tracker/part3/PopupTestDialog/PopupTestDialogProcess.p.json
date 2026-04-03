@@ -1,0 +1,66 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "19D5385697438489",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "financial.tracker.part3.PopupTestDialog.PopupTestDialogData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start(PopupTestData)",
+      "config" : {
+        "signature" : "start",
+        "input" : {
+          "params" : [
+            { "name" : "popupTest", "type" : "financial.tracker.part3.PopupTestData", "desc" : "" }
+          ],
+          "map" : {
+            "out.popupTest" : "param.popupTest"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "popupTest", "type" : "financial.tracker.part3.PopupTestData", "desc" : "" }
+          ],
+          "map" : {
+            "result.popupTest" : "in.popupTest"
+          }
+        },
+        "guid" : "19D5385697D59831"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "19D5385698AFA964"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 160 }
+      },
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 160 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    } ]
+}

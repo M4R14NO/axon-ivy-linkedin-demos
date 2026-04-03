@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "9eda147a-1f1c-42df-99a8-e5e4e51e3aef",
+  "components" : [ {
+    "cid" : "composite1",
+    "type" : "Composite",
+    "config" : {
+      "name" : "financial.tracker.part3.DialogView",
+      "startMethod" : "start",
+      "parameters" : {
+        "view" : "CalledPopupView"
+      }
+    }
+  } ]
+}
