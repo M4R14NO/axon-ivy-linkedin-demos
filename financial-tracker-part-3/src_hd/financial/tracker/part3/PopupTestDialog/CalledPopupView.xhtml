@@ -6,7 +6,8 @@
   <ui:define name="content">
     <h:form id="form">
       <h:panelGroup layout="block" styleClass="i-padding-3">
-        <ui:include src="../PersonFormXhtml/PersonFormXhtml.xhtml" />
+        <ui:param name="person" value="#{dialogDataStore.get(param.dialogDataKey)}" />
+        <ui:include src="../PersonFormXhtml/PersonFormXhtmlFragment.xhtml" />
       </h:panelGroup>
     </h:form>
   </ui:define>

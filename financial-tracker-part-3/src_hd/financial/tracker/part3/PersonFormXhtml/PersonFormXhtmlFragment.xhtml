@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui">
+  <h:panelGroup layout="block" styleClass="i-flex i-gap i-flex-col">
+    <ic:financial.tracker.part3.PersonComponent id="personComponent" startMethod="start" person="#{person}" />
+    <h:panelGroup layout="block" styleClass="i-flex i-gap i-justify-end ">
+      <p:commandButton value="Cancel" styleClass="ui-button-secondary ui-button-flat"
+        actionListener="#{dialogResultBean.cancel}" process="@this" />
+      <p:commandButton value="Proceed" icon="si si-check-1" styleClass="ui-button-primary"
+        actionListener="#{dialogResultBean.close(person)}" />
+    </h:panelGroup>
+  </h:panelGroup>
+</ui:composition>

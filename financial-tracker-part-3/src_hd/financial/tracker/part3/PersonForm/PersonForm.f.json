@@ -21,7 +21,7 @@
         "type" : "Button",
         "config" : {
           "name" : "Cancel",
-          "action" : "#{ivyWorkflowView.cancel()}",
+          "action" : "#{dialogResultBean.cancel}",
           "variant" : "SECONDARY",
           "style" : "FLAT",
           "processOnlySelf" : true
@@ -31,7 +31,7 @@
         "type" : "Button",
         "config" : {
           "name" : "Proceed",
-          "action" : "#{logic.close}",
+          "action" : "#{dialogResultBean.close(data.person)}",
           "type" : "SUBMIT",
           "icon" : "si si-check-1"
         }

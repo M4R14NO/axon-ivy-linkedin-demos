@@ -74,6 +74,13 @@ Beispiel Wrapper im aufrufenden Package:
 ## Rückgabe (dialogReturn)
 Wenn `returnListener` gesetzt ist, wird der `dialogReturn` Event auf dem Button registriert und an den Listener weitergereicht.
 
+Beispiel: Dialog schliesst sich mit Rueckgabewert
+```java
+public void onPersonDialogReturn(SelectEvent event) {
+  Object returned = event.getObject();
+}
+```
+
 ## Objekte an den Dialog übergeben (und zurückschreiben)
 Die Komponente kann Objekte über eine Session-Map bereitstellen. Dabei wird **die gleiche Objekt-Referenz** verwendet. Änderungen im Dialog sind nach dem Schließen im aufrufenden View sichtbar, sobald dieser aktualisiert wird (z. B. `update="@form"` via `dialogReturn`).
 

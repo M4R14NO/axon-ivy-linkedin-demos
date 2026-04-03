@@ -35,6 +35,9 @@
       listener="#{cc.attrs.returnListener}"
       update="#{cc.attrs.update}"
       rendered="#{not empty cc.attrs.returnListener}" />
+    <p:ajax event="dialogReturn"
+      update="#{cc.attrs.update}"
+      rendered="#{empty cc.attrs.returnListener and not empty cc.attrs.update}" />
   </p:commandButton>
 </cc:implementation>
 

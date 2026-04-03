@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
@@ -164,16 +165,30 @@ public class DialogViewBean implements Serializable {
       String dataKeyParam) {
     Map<String, List<String>> dialogParams = params == null ? new HashMap<>() : new HashMap<>(params);
     if (data != null) {
-      if (dialogDataStore == null) {
+      DialogDataStore store = dialogDataStore != null ? dialogDataStore : resolveDialogDataStore();
+      if (store == null) {
         Ivy.log().warn("DialogDataStore not available, data will not be passed to dialog.");
       } else {
-        String key = dialogDataStore.put(data);
+        String key = store.put(data);
         String paramName = (dataKeyParam == null || dataKeyParam.trim().isEmpty()) ? "dialogDataKey"
             : dataKeyParam.trim();
         dialogParams.put(paramName, Collections.singletonList(key));
       }
     }
     return dialogParams;
+  }
+
+  private DialogDataStore resolveDialogDataStore() {
+    try {
+      FacesContext context = FacesContext.getCurrentInstance();
+      if (context == null) {
+        return null;
+      }
+      return context.getApplication().evaluateExpressionGet(context, "#{dialogDataStore}", DialogDataStore.class);
+    } catch (Exception ex) {
+      Ivy.log().warn("DialogDataStore lookup failed: " + ex.getMessage());
+      return null;
+    }
   }
 
   private static void applyBoolean(java.util.function.Consumer<Boolean> setter, Object value) {

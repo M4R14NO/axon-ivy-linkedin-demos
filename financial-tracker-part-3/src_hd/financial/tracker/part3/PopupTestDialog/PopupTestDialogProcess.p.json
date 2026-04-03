@@ -17,7 +17,8 @@
           ],
           "map" : {
             "out.popupTest" : "param.popupTest"
-          }
+          },
+          "code" : "out.person = param.popupTest.person;"
         },
         "result" : {
           "params" : [

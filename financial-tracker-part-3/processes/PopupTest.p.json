@@ -35,7 +35,10 @@
           },
           "code" : [
             "import financial.tracker.part3.Person;",
-            "param.popupTest.person = new Person();"
+            "Person p = new Person();",
+            "p.firstName = \"Vorname\";",
+            "p.lastName = \"Nachname\";",
+            "param.popupTest.person = p;"
           ]
         },
         "output" : {
