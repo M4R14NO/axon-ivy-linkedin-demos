@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.PrimeFaces;
 import org.primefaces.model.DialogFrameworkOptions;
 
 import ch.ivyteam.ivy.environment.Ivy;
@@ -42,7 +43,12 @@ public class DialogViewBean implements Serializable {
     }
 
     String viewName = view.trim();
-    if (viewName.endsWith(".xhtml")) {
+    boolean absolutePath = viewName.startsWith("/");
+    if (absolutePath) {
+      if (!viewName.endsWith(".xhtml")) {
+        viewName = viewName + ".xhtml";
+      }
+    } else if (viewName.endsWith(".xhtml")) {
       viewName = viewName.substring(0, viewName.length() - ".xhtml".length());
     }
 
@@ -51,7 +57,11 @@ public class DialogViewBean implements Serializable {
     boolean hasOptions = width != null || height != null || modal != null || resizable != null || draggable != null
         || (options != null && !options.isEmpty());
     if (!hasOptions && (dialogParams == null || dialogParams.isEmpty())) {
-      new IvyDynamicDialog().open(viewName);
+      if (absolutePath) {
+        PrimeFaces.current().dialog().openDynamic(viewName);
+      } else {
+        new IvyDynamicDialog().open(viewName);
+      }
       return;
     }
 
@@ -73,7 +83,12 @@ public class DialogViewBean implements Serializable {
     }
     applyOptions(builder, options);
 
-    new IvyDynamicDialog().open(viewName, builder.build(), dialogParams);
+    DialogFrameworkOptions builtOptions = builder.build();
+    if (absolutePath) {
+      PrimeFaces.current().dialog().openDynamic(viewName, builtOptions.toMap(), dialogParams);
+    } else {
+      new IvyDynamicDialog().open(viewName, builtOptions, dialogParams);
+    }
   }
 
   public void close(String view) {

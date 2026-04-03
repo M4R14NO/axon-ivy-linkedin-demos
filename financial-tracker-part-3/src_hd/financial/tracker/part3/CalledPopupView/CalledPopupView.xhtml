@@ -8,9 +8,7 @@
     <ui:define name="content">
       <h:body class="body-hd #{ivyFreyaTheme.mode}">
         <h:form id="form">
-          <h:panelGroup layout="block" styleClass="i-flex i-gap i-flex-col">
-            <h:outputText value="ich werde in einem Popup angezeigt" styleClass="" />
-          </h:panelGroup>
+          <ui:include src="CalledPopupViewContent.xhtml" />
         </h:form>
       </h:body>
     </ui:define>

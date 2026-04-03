@@ -14,12 +14,12 @@ Die Komponente kapselt das Öffnen von PrimeFaces Dynamic Dialogs über die Publ
 Datei: [financial-tracker-part-3/src_hd/financial/tracker/part3/DialogView/DialogView.xhtml](financial-tracker-part-3/src_hd/financial/tracker/part3/DialogView/DialogView.xhtml)
 
 Wichtige Attribute:
-- `view` (required): View-Name ohne `.xhtml` (muss im gleichen Package wie die aufrufende HTML-Dialog-View liegen).
+- `view` (required): View-Name ohne `.xhtml`. Relativ: muss im gleichen Package wie die aufrufende HTML-Dialog-View liegen. Absolut: mit `/` beginnen; `.xhtml` wird bei absoluten Pfaden automatisch ergaenzt.
 - `value`: Button-Label (Default: "Open Dialog").
 - `icon`: Button-Icon (Default: `pi pi-external-link`).
 - `styleClass`: CSS-Klassen für den Button.
 - `action`: `open` oder `close` (Default: `open`).
-- `width`, `height`: Dialoggröße (als Content-Größe, z. B. 800/600).
+- `width`, `height`: Dialoggröße (als Content-Größe, Default: 600/300). Bei leerem Dialog bitte explizit setzen.
 - `modal`, `resizable`, `draggable`: Basisoptionen.
 - `options`: Map für zusätzliche Dialog-Optionen (siehe unten).
 - `params`: Map für Dialog-Parameter.
@@ -46,6 +46,19 @@ Unbekannte Optionen werden protokolliert.
   resizable="false"
   draggable="true"
 />
+```
+
+## Absolute View-Pfade
+Absolute Pfade funktionieren nur fuer klassische JSF-Views (z. B. unter `webContent`).
+Fuer HTML-Dialogs aus `src_hd` liefert PrimeFaces keine NavigationCase; hier brauchst du eine Wrapper-View im gleichen Package wie der aufrufende Dialog.
+
+Beispiel Wrapper im aufrufenden Package:
+```xhtml
+<ui:composition template="/layouts/frame-10-full-width.xhtml">
+  <ui:define name="content">
+    <ui:include src="../CalledPopupView/CalledPopupViewContent.xhtml" />
+  </ui:define>
+</ui:composition>
 ```
 
 ## Schließen des Dialogs
