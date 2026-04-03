@@ -8,25 +8,9 @@
       "name" : "financial.tracker.part3.DialogView",
       "startMethod" : "start",
       "parameters" : {
-        "view" : "CalledPopupView",
-        "data" : "#{data.popupTest.person}",
+        "view" : "PersonDialogWrapper",
+        "data" : "#{data.person}",
         "update" : "@form"
-      }
-    }
-  }, {
-    "cid" : "composite2",
-    "type" : "Composite",
-    "config" : {
-      "name" : "financial.tracker.part3.DialogInlineComponent",
-      "startMethod" : "start",
-      "parameters" : {
-        "widgetVar" : "myInlineDlg",
-        "contentSrc" : "../DialogContentComponent/DialogContentFragment.xhtml",
-        "width" : "400",
-        "height" : "700",
-        "header" : "Inline Dialog",
-        "openButtonLabel" : "Open Inline Dialog",
-        "data" : "#{data.popupTest.person}"
       }
     }
   }, {
