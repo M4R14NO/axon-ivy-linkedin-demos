@@ -32,7 +32,11 @@
         "call" : {
           "map" : {
             "param.popupTest" : "in"
-          }
+          },
+          "code" : [
+            "import financial.tracker.part3.Person;",
+            "param.popupTest.person = new Person();"
+          ]
         },
         "output" : {
           "map" : {

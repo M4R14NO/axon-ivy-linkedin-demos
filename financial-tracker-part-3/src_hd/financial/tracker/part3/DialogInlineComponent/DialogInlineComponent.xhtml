@@ -21,6 +21,8 @@
   <cc:attribute name="openButtonIcon" shortDescription="Open button icon" displayName="Open Button Icon" />
   <cc:attribute name="openButtonStyleClass" shortDescription="Open button CSS class" displayName="Open Button Style Class" />
   <cc:attribute name="openButtonRendered" type="java.lang.Boolean" default="true" shortDescription="Render open button" displayName="Open Button Rendered" />
+  <cc:attribute name="data" type="java.lang.Object" shortDescription="Data object for dialog content" displayName="Dialog Data" />
+  <cc:attribute name="dataVar" default="dialogData" shortDescription="Variable name for dialog data" displayName="Dialog Data Var" />
 </cc:interface>
 
 <cc:implementation>
@@ -48,6 +50,7 @@
     appendTo="#{cc.attrs.appendTo}"
     styleClass="#{cc.attrs.styleClass}">
     <ui:fragment rendered="#{not empty cc.attrs.contentSrc}">
+      <ui:param name="#{cc.attrs.dataVar}" value="#{cc.attrs.data}" />
       <ui:include src="#{cc.attrs.contentSrc}" />
     </ui:fragment>
     <ui:fragment rendered="#{empty cc.attrs.contentSrc}">
