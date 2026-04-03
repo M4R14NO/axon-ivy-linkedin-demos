@@ -32,4 +32,8 @@ public class DialogDataStore implements Serializable {
   public Object remove(String key) {
     return store.remove(key);
   }
+
+  public Map<String, Object> getStore() {
+    return store;
+  }
 }

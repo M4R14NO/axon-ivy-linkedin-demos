@@ -38,7 +38,19 @@
             "Person p = new Person();",
             "p.firstName = \"Vorname\";",
             "p.lastName = \"Nachname\";",
-            "param.popupTest.person = p;"
+            "param.popupTest.person = p;",
+            "",
+            "import financial.tracker.part3.Child;",
+            "Child k1 = new Child();",
+            "Child k2 = new Child();",
+            "k1.kindAlter = 2;",
+            "k1.kindName = \"Bebi\";",
+            "",
+            "k2.kindAlter = 5;",
+            "k2.kindName = \"Bubu\";",
+            "",
+            "p.children.add(k1);",
+            "p.children.add(k2);"
           ]
         },
         "output" : {

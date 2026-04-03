@@ -6,8 +6,10 @@
   <ui:define name="content">
     <h:form id="form">
       <h:panelGroup layout="block" styleClass="i-padding-3">
-        <ui:param name="person" value="#{dialogDataStore.get(param.dialogDataKey)}" />
-        <ui:include src="../PersonFormXhtml/PersonFormXhtml.xhtml" />
+        <ui:include src="../PersonFormXhtml/PersonFormXhtml.xhtml">
+          <ui:param name="person" value="#{dialogObjectBean.value}" />
+          <ui:param name="readOnly" value="#{dialogObjectBean.params['readOnly']}" />
+        </ui:include>
       </h:panelGroup>
     </h:form>
   </ui:define>

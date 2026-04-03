@@ -25,5 +25,35 @@
         }
       } ]
     }
+  }, {
+    "cid" : "fieldset9",
+    "type" : "Fieldset",
+    "config" : {
+      "components" : [ {
+        "cid" : "datatable6",
+        "type" : "DataTable",
+        "config" : {
+          "components" : [ {
+            "cid" : "datatablecolumn8",
+            "type" : "DataTableColumn",
+            "config" : {
+              "header" : "kindName",
+              "value" : "kindName"
+            }
+          }, {
+            "cid" : "datatablecolumn7",
+            "type" : "DataTableColumn",
+            "config" : {
+              "header" : "kindAlter",
+              "value" : "kindAlter"
+            }
+          } ],
+          "value" : "#{data.person.children}",
+          "maxRows" : "10",
+          "addButton" : true
+        }
+      } ],
+      "legend" : "Kinder"
+    }
   } ]
 }
