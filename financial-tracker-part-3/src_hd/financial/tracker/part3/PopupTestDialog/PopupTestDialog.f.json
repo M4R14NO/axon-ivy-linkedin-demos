@@ -11,5 +11,20 @@
         "view" : "CalledPopupView"
       }
     }
+  }, {
+    "cid" : "composite2",
+    "type" : "Composite",
+    "config" : {
+      "name" : "financial.tracker.part3.DialogInlineComponent",
+      "startMethod" : "start",
+      "parameters" : {
+        "widgetVar" : "myInlineDlg",
+        "contentSrc" : "../DialogContentComponent/DialogContentFragment.xhtml",
+        "width" : "400",
+        "height" : "700",
+        "header" : "Inline Dialog",
+        "openButtonLabel" : "Open Inline Dialog"
+      }
+    }
   } ]
 }

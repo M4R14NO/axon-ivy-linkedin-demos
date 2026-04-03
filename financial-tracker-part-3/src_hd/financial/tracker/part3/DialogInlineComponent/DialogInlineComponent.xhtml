@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite" xmlns:ic="http://ivyteam.ch/jsf/component"
+  xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+<cc:interface componentType="IvyComponent">
+  <cc:attribute name="widgetVar" default="inlineDialog" shortDescription="Dialog widgetVar" displayName="WidgetVar" />
+  <cc:attribute name="header" shortDescription="Dialog header" displayName="Header" />
+  <cc:attribute name="width" default="600" shortDescription="Dialog width" displayName="Width" />
+  <cc:attribute name="height" default="300" shortDescription="Dialog height" displayName="Height" />
+  <cc:attribute name="modal" type="java.lang.Boolean" default="true" shortDescription="Modal dialog" displayName="Modal" />
+  <cc:attribute name="resizable" type="java.lang.Boolean" default="false" shortDescription="Resizable dialog" displayName="Resizable" />
+  <cc:attribute name="draggable" type="java.lang.Boolean" default="true" shortDescription="Draggable dialog" displayName="Draggable" />
+  <cc:attribute name="closable" type="java.lang.Boolean" default="true" shortDescription="Closable dialog" displayName="Closable" />
+  <cc:attribute name="closeOnEscape" type="java.lang.Boolean" default="true" shortDescription="Close on Escape" displayName="Close On Escape" />
+  <cc:attribute name="responsive" type="java.lang.Boolean" default="true" shortDescription="Responsive dialog" displayName="Responsive" />
+  <cc:attribute name="fitViewport" type="java.lang.Boolean" default="true" shortDescription="Fit to viewport" displayName="Fit Viewport" />
+  <cc:attribute name="appendTo" default="@(body)" shortDescription="Append target" displayName="Append To" />
+  <cc:attribute name="styleClass" shortDescription="Dialog CSS class" displayName="Style Class" />
+  <cc:attribute name="contentSrc" shortDescription="Include path for dialog content" displayName="Content Src" />
+  <cc:attribute name="openButtonLabel" shortDescription="Open button label" displayName="Open Button Label" />
+  <cc:attribute name="openButtonIcon" shortDescription="Open button icon" displayName="Open Button Icon" />
+  <cc:attribute name="openButtonStyleClass" shortDescription="Open button CSS class" displayName="Open Button Style Class" />
+  <cc:attribute name="openButtonRendered" type="java.lang.Boolean" default="true" shortDescription="Render open button" displayName="Open Button Rendered" />
+</cc:interface>
+
+<cc:implementation>
+
+  <!-- Fields need to be inside an outer h:form. -->
+  <ui:fragment rendered="#{cc.attrs.openButtonRendered and not empty cc.attrs.openButtonLabel}">
+    <p:commandButton type="button"
+      value="#{cc.attrs.openButtonLabel}"
+      icon="#{cc.attrs.openButtonIcon}"
+      styleClass="#{cc.attrs.openButtonStyleClass}"
+      onclick="PF('#{cc.attrs.widgetVar}').show()" />
+  </ui:fragment>
+  <p:dialog id="inline-dialog"
+    widgetVar="#{cc.attrs.widgetVar}"
+    header="#{cc.attrs.header}"
+    width="#{cc.attrs.width}"
+    height="#{cc.attrs.height}"
+    modal="#{cc.attrs.modal}"
+    resizable="#{cc.attrs.resizable}"
+    draggable="#{cc.attrs.draggable}"
+    closable="#{cc.attrs.closable}"
+    closeOnEscape="#{cc.attrs.closeOnEscape}"
+    responsive="#{cc.attrs.responsive}"
+    fitViewport="#{cc.attrs.fitViewport}"
+    appendTo="#{cc.attrs.appendTo}"
+    styleClass="#{cc.attrs.styleClass}">
+    <ui:fragment rendered="#{not empty cc.attrs.contentSrc}">
+      <ui:include src="#{cc.attrs.contentSrc}" />
+    </ui:fragment>
+    <ui:fragment rendered="#{empty cc.attrs.contentSrc}">
+      <cc:insertChildren />
+    </ui:fragment>
+  </p:dialog>
+
+</cc:implementation>
+
+</html>

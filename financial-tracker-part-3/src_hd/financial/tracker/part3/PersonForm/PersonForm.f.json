@@ -1,0 +1,43 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "b372feab-f7cb-489d-97fa-4697f17c2502",
+  "components" : [ {
+    "cid" : "composite1",
+    "type" : "Composite",
+    "config" : {
+      "id" : "personComponent",
+      "name" : "financial.tracker.part3.PersonComponent",
+      "startMethod" : "start",
+      "parameters" : {
+        "person" : "#{data.person}"
+      }
+    }
+  }, {
+    "cid" : "layout2",
+    "type" : "Layout",
+    "config" : {
+      "components" : [ {
+        "cid" : "button3",
+        "type" : "Button",
+        "config" : {
+          "name" : "Cancel",
+          "action" : "#{ivyWorkflowView.cancel()}",
+          "variant" : "SECONDARY",
+          "style" : "FLAT",
+          "processOnlySelf" : true
+        }
+      }, {
+        "cid" : "button4",
+        "type" : "Button",
+        "config" : {
+          "name" : "Proceed",
+          "action" : "#{logic.close}",
+          "type" : "SUBMIT",
+          "icon" : "si si-check-1"
+        }
+      } ],
+      "type" : "FLEX",
+      "justifyContent" : "END"
+    }
+  } ]
+}

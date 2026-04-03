@@ -1,0 +1,29 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/form/12.0.6/form.json",
+  "id" : "465ad7b0-e940-4d97-870f-d4e335e52c63",
+  "config" : {
+    "type" : "COMPONENT"
+  },
+  "components" : [ {
+    "cid" : "layout5",
+    "type" : "Layout",
+    "config" : {
+      "id" : "Person",
+      "components" : [ {
+        "cid" : "input3",
+        "type" : "Input",
+        "config" : {
+          "label" : "First Name",
+          "value" : "#{data.person.firstName}"
+        }
+      }, {
+        "cid" : "input4",
+        "type" : "Input",
+        "config" : {
+          "label" : "Last Name",
+          "value" : "#{data.person.lastName}"
+        }
+      } ]
+    }
+  } ]
+}

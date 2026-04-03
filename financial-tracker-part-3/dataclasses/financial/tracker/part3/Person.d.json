@@ -1,11 +1,15 @@
 {
   "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
-  "simpleName" : "PopupTestData",
+  "simpleName" : "Person",
   "namespace" : "financial.tracker.part3",
   "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "person",
-    "type" : "financial.tracker.part3.Person",
+    "name" : "firstName",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "lastName",
+    "type" : "String",
     "modifiers" : [ "PERSISTENT" ]
   } ]
 }
