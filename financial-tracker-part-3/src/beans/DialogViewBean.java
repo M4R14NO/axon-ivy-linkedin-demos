@@ -22,6 +22,12 @@ import ch.ivyteam.ivy.jsf.primefaces.dialog.IvyDynamicDialog;
 public class DialogViewBean implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  private static final int DEFAULT_WIDTH = 600;
+  private static final int DEFAULT_HEIGHT = 300;
+  private static final boolean DEFAULT_MODAL = true;
+  private static final boolean DEFAULT_RESIZABLE = false;
+  private static final boolean DEFAULT_DRAGGABLE = true;
+
   @ManagedProperty(value = "#{dialogDataStore}")
   private DialogDataStore dialogDataStore;
 
@@ -90,6 +96,32 @@ public class DialogViewBean implements Serializable {
     } else {
       new IvyDynamicDialog().open(viewName, builtOptions, dialogParams);
     }
+  }
+
+  public void openFromAction(String view, Object data) {
+    open(view, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_MODAL, DEFAULT_RESIZABLE, DEFAULT_DRAGGABLE,
+        null, null, data, null);
+  }
+
+  public void openFromAction(String view, Object data, Integer width, Integer height, Boolean modal,
+      Boolean resizable, Boolean draggable, Map<String, Object> options, Map<String, List<String>> params,
+      String dataKeyParam) {
+    open(view, width, height, modal, resizable, draggable, options, params, data, dataKeyParam);
+  }
+
+  public static void openFromActionWithLookup(String view, Object data) {
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (context == null) {
+      Ivy.log().warn("FacesContext not available, dialog will not open.");
+      return;
+    }
+    DialogViewBean dialogViewBean = context.getApplication().evaluateExpressionGet(context, "#{dialogViewBean}",
+        DialogViewBean.class);
+    if (dialogViewBean == null) {
+      Ivy.log().warn("DialogViewBean not available, dialog will not open.");
+      return;
+    }
+    dialogViewBean.openFromAction(view, data);
   }
 
   public void close(String view) {

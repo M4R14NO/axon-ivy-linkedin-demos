@@ -74,7 +74,9 @@
             { "name" : "person", "type" : "financial.tracker.part3.Person", "desc" : "" }
           ],
           "map" : { },
-          "code" : "ivy.log.info(\"person: \" + param.person);"
+          "code" : [
+            "beans.DialogViewBean.openFromActionWithLookup(\"PersonDialogWrapper\", param.person);"
+          ]
         },
         "guid" : "19D573A18CE7A8C8"
       },
