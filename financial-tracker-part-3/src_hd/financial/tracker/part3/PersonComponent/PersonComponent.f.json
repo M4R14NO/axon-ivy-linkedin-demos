@@ -29,6 +29,7 @@
     "cid" : "fieldset9",
     "type" : "Fieldset",
     "config" : {
+      "id" : "kindFieldset",
       "components" : [ {
         "cid" : "datatable6",
         "type" : "DataTable",
@@ -46,6 +47,21 @@
             "config" : {
               "header" : "kindAlter",
               "value" : "kindAlter"
+            }
+          }, {
+            "cid" : "datatablecolumn10",
+            "type" : "DataTableColumn",
+            "config" : {
+              "header" : "actionButtons",
+              "components" : [ {
+                "cid" : "button11",
+                "type" : "Button",
+                "config" : {
+                  "name" : "Edit Child",
+                  "action" : "#{logic.editChild(row)}"
+                }
+              } ],
+              "asActionColumn" : true
             }
           } ],
           "value" : "#{data.person.children}",

@@ -63,5 +63,33 @@
         "at" : { "x" : 224, "y" : 160 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "editPersonActionButton(Person)",
+      "config" : {
+        "signature" : "editPersonActionButton",
+        "input" : {
+          "params" : [
+            { "name" : "person", "type" : "financial.tracker.part3.Person", "desc" : "" }
+          ],
+          "map" : { },
+          "code" : "ivy.log.info(\"person: \" + param.person);"
+        },
+        "guid" : "19D573A18CE7A8C8"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 240 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 288, "y" : 240 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
     } ]
 }

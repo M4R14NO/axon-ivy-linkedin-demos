@@ -7,5 +7,9 @@
     "name" : "person",
     "type" : "financial.tracker.part3.Person",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "persons",
+    "type" : "List<financial.tracker.part3.Person>",
+    "modifiers" : [ "PERSISTENT" ]
   } ]
 }

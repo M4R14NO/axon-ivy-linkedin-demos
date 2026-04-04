@@ -40,5 +40,119 @@
       "type" : "FLEX",
       "justifyContent" : "END"
     }
+  }, {
+    "cid" : "datatable6",
+    "type" : "DataTable",
+    "config" : {
+      "components" : [ {
+        "cid" : "datatablecolumn7",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "children",
+          "value" : "children"
+        }
+      }, {
+        "cid" : "datatablecolumn8",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "firstName",
+          "value" : "firstName"
+        }
+      }, {
+        "cid" : "datatablecolumn9",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "lastName",
+          "value" : "lastName"
+        }
+      }, {
+        "cid" : "datatablecolumn11",
+        "type" : "DataTableColumn",
+        "config" : {
+          "header" : "Actions",
+          "components" : [ {
+            "cid" : "button12",
+            "type" : "Button",
+            "config" : {
+              "action" : "editRow",
+              "type" : "EDIT",
+              "icon" : "pi pi-pencil"
+            }
+          }, {
+            "cid" : "button13",
+            "type" : "Button",
+            "config" : {
+              "action" : "deleteRow",
+              "variant" : "DANGER",
+              "type" : "DELETE",
+              "icon" : "pi pi-trash",
+              "confirmDialog" : true,
+              "confirmHeader" : "Delete Confirmation",
+              "confirmMessage" : "Are you sure you want to delete row: #{row}?",
+              "confirmOkValue" : "Yes",
+              "confirmCancelValue" : "No"
+            }
+          }, {
+            "cid" : "button19",
+            "type" : "Button",
+            "config" : {
+              "name" : "Edit Person Button",
+              "action" : "#{logic.editPersonActionButton(row)}"
+            }
+          } ],
+          "asActionColumn" : true
+        }
+      } ],
+      "value" : "#{data.popupTest.persons}",
+      "maxRows" : "10",
+      "isEditable" : true,
+      "editDialogId" : "dialog10",
+      "addButton" : true
+    }
+  }, {
+    "cid" : "dialog10",
+    "type" : "Dialog",
+    "config" : {
+      "components" : [ {
+        "cid" : "datatable14",
+        "type" : "DataTable",
+        "config" : {
+          "id" : "rowTable",
+          "components" : [ {
+            "cid" : "datatablecolumn17",
+            "type" : "DataTableColumn",
+            "config" : {
+              "header" : "kindAlter",
+              "value" : "kindAlter"
+            }
+          }, {
+            "cid" : "datatablecolumn18",
+            "type" : "DataTableColumn",
+            "config" : {
+              "header" : "kindName",
+              "value" : "kindName"
+            }
+          } ],
+          "value" : "#{currentRow.children}",
+          "maxRows" : "10"
+        }
+      }, {
+        "cid" : "input15",
+        "type" : "Input",
+        "config" : {
+          "label" : "First Name",
+          "value" : "#{currentRow.firstName}"
+        }
+      }, {
+        "cid" : "input16",
+        "type" : "Input",
+        "config" : {
+          "label" : "Last Name",
+          "value" : "#{currentRow.lastName}"
+        }
+      } ],
+      "header" : "Edit Row",
+      "linkedComponent" : "datatable6"
+    }
   } ]
 }

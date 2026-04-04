@@ -50,7 +50,26 @@
             "k2.kindName = \"Bubu\";",
             "",
             "p.children.add(k1);",
-            "p.children.add(k2);"
+            "p.children.add(k2);",
+            "",
+            "",
+            "Person p2 = new Person();",
+            "",
+            "Child k3 = new Child();",
+            "Child k4 = new Child();",
+            "k3.kindAlter = 2;",
+            "k3.kindName = \"Babi\";",
+            "",
+            "k4.kindAlter = 5;",
+            "k4.kindName = \"Bobo\";",
+            "",
+            "p2.firstName = \"Ludiwg\";",
+            "p2.lastName = \"Bayern\";",
+            "p2.children.add(k3);",
+            "p2.children.add(k4);",
+            "",
+            "param.popupTest.persons.add(p);",
+            "param.popupTest.persons.add(p2);"
           ]
         },
         "output" : {

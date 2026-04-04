@@ -62,5 +62,32 @@
         "at" : { "x" : 224, "y" : 160 },
         "labelOffset" : { "x" : 10, "y" : 30 }
       }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "editChild(Child)",
+      "config" : {
+        "signature" : "editChild",
+        "input" : {
+          "params" : [
+            { "name" : "child", "type" : "financial.tracker.part3.Child", "desc" : "" }
+          ],
+          "map" : { }
+        },
+        "guid" : "19D57375CD3ECA8C"
+      },
+      "visual" : {
+        "at" : { "x" : 344, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
+    }, {
+      "id" : "f7",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 560, "y" : 64 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
     } ]
 }
